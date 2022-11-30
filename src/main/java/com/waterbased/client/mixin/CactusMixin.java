@@ -28,8 +28,6 @@ public class CactusMixin extends Block {
         if (ModuleManager.INSTANCE.getModule(AntiCactus.class) != null &&
                 ModuleManager.INSTANCE.getModule(AntiCactus.class).isEnabled()) {
             cir.setReturnValue(VoxelShapes.fullCube());
-        } else {
-            Client.LOGGER.info("AntiCactus error");
         }
     }
 }

@@ -13,6 +13,8 @@
   },
   "mixins": [
     "CactusMixin",
-    "PlayerMixin"
+    "ClientPlayerEntityMixin",
+    "PlayerEntityMixin",
+    "SlowdownMixin"
   ]
 }

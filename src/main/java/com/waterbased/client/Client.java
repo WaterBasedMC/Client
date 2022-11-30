@@ -18,6 +18,7 @@ public class Client implements ModInitializer {
 		MODULE_MANAGER.addModule(new NoFall());
 		MODULE_MANAGER.addModule(new FreeCam());
 		MODULE_MANAGER.addModule(new AntiCactus());
+		MODULE_MANAGER.addModule(new NoSlowDown());
 		for (Module module : MODULE_MANAGER.getModules()) {
 			LOGGER.info(module.getName() + " - " + module.getDescription());
 		}

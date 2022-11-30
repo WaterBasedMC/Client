@@ -12,13 +12,11 @@ public class AntiCactus extends Module {
     @Override
     public void onEnable() {
         // see mixin\CactusMixin
-        LOGGER.info("AntiCactus enabled");
     }
 
     @Override
     public void onDisable() {
         // see mixin\CactusMixin
-        LOGGER.info("AntiCactus disabled");
     }
 
     @Override
