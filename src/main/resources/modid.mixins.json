@@ -1,14 +1,16 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "net.fabricmc.example.mixin",
-  "compatibilityLevel": "JAVA_17",
-  "mixins": [
-  ],
+  "package": "com.waterbased.client.mixin",
   "client": [
-    "ExampleMixin"
+    "ClientMixin",
+    "KeyboardMixin"
   ],
+  "compatibilityLevel": "JAVA_17",
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "mixins": [
+    "PlayerMixin"
+  ]
 }
