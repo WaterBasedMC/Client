@@ -17,6 +17,7 @@ public abstract class Module {
     public abstract void onDisable();
 
     public abstract void onTick();
+
     public abstract void onKey(int key);
 
     public boolean isEnabled() {

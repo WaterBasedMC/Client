@@ -1,6 +1,5 @@
 package com.waterbased.client.modules;
 
-import static com.waterbased.client.Client.LOGGER;
 import static com.waterbased.client.Client.MODULE_MANAGER;
 
 public class AntiCactus extends Module {
@@ -20,7 +19,8 @@ public class AntiCactus extends Module {
     }
 
     @Override
-    public void onTick() {}
+    public void onTick() {
+    }
 
     @Override
     public void onKey(int key) {

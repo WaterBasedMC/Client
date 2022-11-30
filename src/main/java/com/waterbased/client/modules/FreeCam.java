@@ -1,9 +1,7 @@
 package com.waterbased.client.modules;
 
-import com.waterbased.client.Client;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.network.OtherClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.util.math.Box;
@@ -12,6 +10,7 @@ import static com.waterbased.client.Client.MODULE_MANAGER;
 
 public class FreeCam extends Module {
     public boolean flying = false;
+
     public FreeCam() {
         super("FreeCam", "description");
     }

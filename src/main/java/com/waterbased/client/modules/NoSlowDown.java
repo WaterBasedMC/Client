@@ -1,6 +1,5 @@
 package com.waterbased.client.modules;
 
-import static com.waterbased.client.Client.LOGGER;
 import static com.waterbased.client.Client.MODULE_MANAGER;
 
 public class NoSlowDown extends Module {
@@ -14,17 +13,18 @@ public class NoSlowDown extends Module {
         // see mixin\SlowdownMixin
         // see mixin\PlayerEntityMixin\slowMovement
         // see mixin\ClientPlayerEntityMixin\isUsingItem
-        LOGGER.info("NoSlowDown enabled");
     }
 
     @Override
     public void onDisable() {
-        // see mixin\NoSlowDownMixin
-        LOGGER.info("NoSlowDown disabled");
+        // see mixin\SlowdownMixin
+        // see mixin\PlayerEntityMixin\slowMovement
+        // see mixin\ClientPlayerEntityMixin\isUsingItem
     }
 
     @Override
-    public void onTick() {}
+    public void onTick() {
+    }
 
     @Override
     public void onKey(int key) {

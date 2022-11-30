@@ -50,7 +50,7 @@ public class CreativeFly extends Module {
         ticks++;
         if (ticks % 80 == 0) {
             if (player.isSneaking()) {
-                ticks=2;
+                ticks = 2;
             } else {
                 player.setVelocity(player.getVelocity().x, -0.07, player.getVelocity().z);
             }
