@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "Water-Based Client",
+  "id": "water_based_client",
   "version": "${version}",
 
   "name": "Mods to Bypass Water-Based Anti-Cheat",
