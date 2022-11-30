@@ -3,6 +3,7 @@ package com.waterbased.client;
 import com.waterbased.client.modules.CreativeFly;
 import com.waterbased.client.modules.Module;
 import com.waterbased.client.modules.ModuleManager;
+import com.waterbased.client.modules.NoFall;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ public class Client implements ModInitializer {
 	public void onInitialize() {
 		LOGGER.info("Hello Fabric world!");
 		MODULE_MANAGER.addModule(new CreativeFly());
+		MODULE_MANAGER.addModule(new NoFall());
 		for (Module module : MODULE_MANAGER.getModules()) {
 			LOGGER.info(module.getName() + " - " + module.getDescription());
 		}

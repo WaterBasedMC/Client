@@ -54,7 +54,7 @@ public class FreeCam extends Module {
     @Override
     public void onKey(int key) {
         if (key == 73) {
-            MODULE_MANAGER.getModule(FreeCam.class).toggleState();
+            MODULE_MANAGER.getModule(this.getClass()).toggleState();
         }
     }
 }

@@ -37,12 +37,17 @@ public class CreativeFly extends Module {
         if (player.input.jumping) {
             player.setVelocity(player.getVelocity().x, player.airStrafingSpeed, player.getVelocity().z);
         } else if (player.input.sneaking) {
+            player.airStrafingSpeed = 0.85f;
             player.setVelocity(player.getVelocity().x, -player.airStrafingSpeed, player.getVelocity().z);
         }
         // prevent kick
         ticks++;
         if (ticks % 80 == 0) {
-            player.setVelocity(player.getVelocity().x, -0.07, player.getVelocity().z);
+            if (player.isSneaking()) {
+                ticks=2;
+            } else {
+                player.setVelocity(player.getVelocity().x, -0.07, player.getVelocity().z);
+            }
         } else if (ticks % 80 == 1) {
             player.setVelocity(player.getVelocity().x, 0.07, player.getVelocity().z);
         }
@@ -51,7 +56,7 @@ public class CreativeFly extends Module {
     @Override
     public void onKey(int key) {
         if (key == 72) {
-            MODULE_MANAGER.getModule(CreativeFly.class).toggleState();
+            MODULE_MANAGER.getModule(this.getClass()).toggleState();
         }
     }
 }
