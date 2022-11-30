@@ -26,9 +26,6 @@ public class Client implements ModInitializer {
 	}
 
 	public void onKey(int key) {
-		if (key == 72) {
-			MODULE_MANAGER.getModule(CreativeFly.class).toggleState();
-		}
 		MODULE_MANAGER.getModules().forEach(module -> module.onKey(key));
 	}
 }

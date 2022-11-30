@@ -15,7 +15,6 @@ public abstract class Module {
     public abstract void onEnable();
 
     public abstract void onDisable();
-    public abstract void onWorldJoin();
 
     public abstract void onTick();
     public abstract void onKey(int key);

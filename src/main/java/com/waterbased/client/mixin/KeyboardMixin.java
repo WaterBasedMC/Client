@@ -9,9 +9,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Keyboard.class)
 public class KeyboardMixin {
+
     // on key press
     @Inject(at = @At("HEAD"), method = "onKey")
-    public void onKey(long window, int key, int scancode, int i, int j, CallbackInfo ci) {
-        Client.INSTANCE.onKey(key);
+    public void onKey(long window, int key, int scancode, int action, int modifiers, CallbackInfo ci) {
+        if (action == 1) {
+            Client.INSTANCE.onKey(key);
+        }
     }
 }
