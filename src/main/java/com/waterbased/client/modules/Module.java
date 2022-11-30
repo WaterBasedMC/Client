@@ -34,6 +34,11 @@ public abstract class Module {
 
     public void toggleState() {
         this.enabled = !this.enabled;
+        if (this.enabled) {
+            this.onEnable();
+        } else {
+            this.onDisable();
+        }
     }
 
     @Override

@@ -14,28 +14,11 @@ public class CreativeFly extends Module {
 
     @Override
     public void onEnable() {
-        ClientPlayerEntity player = MinecraftClient.getInstance().player;
-        if (player != null) {
-            Client.LOGGER.info("Creative Fly enabled.");
-            player.getAbilities().flying = true;
-            player.getAbilities().allowFlying = true;
-            player.sendAbilitiesUpdate();
-        } else {
-            Client.LOGGER.error("Player is null.");
-        }
+        this.ticks = 0;
     }
 
     @Override
     public void onDisable() {
-        ClientPlayerEntity player = MinecraftClient.getInstance().player;
-        if (player != null) {
-            Client.LOGGER.info("Creative Fly disabled.");
-            player.getAbilities().flying = false;
-            player.getAbilities().allowFlying = false;
-            player.sendAbilitiesUpdate();
-        } else {
-            Client.LOGGER.error("Player is null.");
-        }
     }
 
     @Override
@@ -49,7 +32,7 @@ public class CreativeFly extends Module {
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
         if (player == null) return;
         player.getAbilities().flying = false;
-        player.airStrafingSpeed = 0.02f;
+        player.airStrafingSpeed = 2f;
 
         player.setVelocity(0, 0, 0);
         if (player.input.jumping) {
@@ -58,10 +41,14 @@ public class CreativeFly extends Module {
             player.setVelocity(player.getVelocity().x, -0.5, player.getVelocity().z);
         }
         // prevent kick
-        if (ticks++ % 80 == 0) {
+        ticks++;
+        if (ticks % 80 == 0) {
             player.setVelocity(player.getVelocity().x, -0.07, player.getVelocity().z);
+        } else if (ticks % 80 == 1) {
+            player.setVelocity(player.getVelocity().x, 0.07, player.getVelocity().z);
         }
 
+        player.networkHandler.sendPacket(new PlayerMoveC2SPacket.OnGroundOnly(player.isOnGround()));
 
     }
 
