@@ -4,14 +4,15 @@
   "package": "com.waterbased.client.mixin",
   "client": [
     "ClientMixin",
-    "KeyboardMixin",
-    "FreeCamMixin"
+    "FreeCamMixin",
+    "KeyboardMixin"
   ],
   "compatibilityLevel": "JAVA_17",
   "injectors": {
     "defaultRequire": 1
   },
   "mixins": [
+    "CactusMixin",
     "PlayerMixin"
   ]
 }

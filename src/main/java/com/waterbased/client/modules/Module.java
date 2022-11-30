@@ -9,7 +9,7 @@ public abstract class Module {
     public Module(String name, String description) {
         this.name = name;
         this.description = description;
-        this.enabled = true;
+        this.enabled = false;
     }
 
     public abstract void onEnable();
@@ -33,6 +33,15 @@ public abstract class Module {
 
     public void toggleState() {
         this.enabled = !this.enabled;
+        callActivationCallbacks();
+    }
+
+    public void forceState(boolean state) {
+        this.enabled = state;
+        callActivationCallbacks();
+    }
+
+    private void callActivationCallbacks() {
         if (this.enabled) {
             this.onEnable();
         } else {

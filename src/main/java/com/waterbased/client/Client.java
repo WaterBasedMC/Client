@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 public class Client implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger("waterbased-client");
 	public static final Client INSTANCE = new Client();
-	public static final ModuleManager MODULE_MANAGER = new ModuleManager();
+	public static final ModuleManager MODULE_MANAGER = ModuleManager.INSTANCE;
 
 	@Override
 	public void onInitialize() {
@@ -17,6 +17,7 @@ public class Client implements ModInitializer {
 		MODULE_MANAGER.addModule(new CreativeFly());
 		MODULE_MANAGER.addModule(new NoFall());
 		MODULE_MANAGER.addModule(new FreeCam());
+		MODULE_MANAGER.addModule(new AntiCactus());
 		for (Module module : MODULE_MANAGER.getModules()) {
 			LOGGER.info(module.getName() + " - " + module.getDescription());
 		}

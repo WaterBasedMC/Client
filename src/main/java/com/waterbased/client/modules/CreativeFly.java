@@ -12,14 +12,20 @@ public class CreativeFly extends Module {
     }
 
     private int ticks = 0;
+    private boolean oldNoFallState = false;
 
     @Override
     public void onEnable() {
         this.ticks = 0;
+        NoFall nf = (NoFall) MODULE_MANAGER.getModule(NoFall.class);
+        this.oldNoFallState = nf.isEnabled();
+        nf.forceState(true);
     }
 
     @Override
     public void onDisable() {
+        NoFall nf = (NoFall) MODULE_MANAGER.getModule(NoFall.class);
+        nf.forceState(this.oldNoFallState);
     }
 
     @Override
