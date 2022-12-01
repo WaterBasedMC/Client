@@ -5,7 +5,6 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 
-import static com.waterbased.client.Client.LOGGER;
 import static com.waterbased.client.Client.MODULE_MANAGER;
 
 public class NightVision extends Module {

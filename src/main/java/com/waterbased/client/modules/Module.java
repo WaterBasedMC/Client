@@ -40,6 +40,7 @@ public abstract class Module {
     }
 
     public void forceState(boolean state) {
+        if (this.enabled == state) return;
         this.enabled = state;
         callActivationCallbacks();
     }

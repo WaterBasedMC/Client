@@ -4,16 +4,22 @@ import com.waterbased.client.modules.Module;
 import com.waterbased.client.modules.*;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.MinecraftClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import net.minecraft.text.Text;
+
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
 
 public class Client implements ModInitializer {
-    public static final Logger LOGGER = LoggerFactory.getLogger("waterbased-client");
+    public static final Logger LOGGER = Logger.getLogger("WaterBased");
+    public static boolean LOG_TO_CHAT = true;
     public static final Client INSTANCE = new Client();
     public static final ModuleManager MODULE_MANAGER = ModuleManager.INSTANCE;
 
     @Override
     public void onInitialize() {
+        setupLogger();
         LOGGER.info("Hello Fabric world!");
         MODULE_MANAGER.addModule(new CreativeFly());
         MODULE_MANAGER.addModule(new NoFall());
@@ -25,6 +31,52 @@ public class Client implements ModInitializer {
         for (Module module : MODULE_MANAGER.getModules()) {
             LOGGER.info(module.getName() + " - " + module.getDescription());
         }
+    }
+
+    private void setupLogger() {
+        // LOGGER add handler to log to chat if possible
+        LOGGER.addHandler(new Handler() {
+            @Override
+            public void publish(LogRecord record) {
+                if (!LOG_TO_CHAT) return;
+                // writes to mc chat (green = info, yellow = warning, red = severe)
+                if (MinecraftClient.getInstance().inGameHud != null) {
+                    String color = record.getLevel() == Level.INFO ? "§a" : record.getLevel() == Level.WARNING ? "§e" : "§c";
+                    MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of(color + record.getMessage()));
+                }
+            }
+
+            @Override
+            public void flush() {
+            }
+
+            @Override
+            public void close() throws SecurityException {
+            }
+        });
+        LOGGER.addHandler(new Handler() {
+            @Override
+            public void publish(LogRecord record) {
+                org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger("WaterBased"); // Maybe not the best way to do this
+                if (record.getLevel() == Level.INFO) {
+                    logger.info(record.getMessage());
+                } else if (record.getLevel() == Level.WARNING) {
+                    logger.warn(record.getMessage());
+                } else if (record.getLevel() == Level.SEVERE) {
+                    logger.error(record.getMessage());
+                }
+            }
+
+            @Override
+            public void flush() {
+            }
+
+            @Override
+            public void close() throws SecurityException {
+            }
+        });
+
+        LOGGER.setUseParentHandlers(false);
     }
 
     public void onTick() {
