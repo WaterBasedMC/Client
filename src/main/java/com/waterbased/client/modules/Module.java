@@ -1,5 +1,7 @@
 package com.waterbased.client.modules;
 
+import com.waterbased.client.Client;
+
 public abstract class Module {
 
     private final String name;
@@ -43,6 +45,7 @@ public abstract class Module {
     }
 
     private void callActivationCallbacks() {
+        Client.LOGGER.info(this.name + " is now " + (this.enabled ? "enabled" : "disabled"));
         if (this.enabled) {
             this.onEnable();
         } else {

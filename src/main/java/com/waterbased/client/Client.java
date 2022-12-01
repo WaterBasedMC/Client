@@ -21,6 +21,7 @@ public class Client implements ModInitializer {
         MODULE_MANAGER.addModule(new AntiCactus());
         MODULE_MANAGER.addModule(new NoSlowDown());
         MODULE_MANAGER.addModule(new EntityGlow());
+        MODULE_MANAGER.addModule(new NightVision());
         for (Module module : MODULE_MANAGER.getModules()) {
             LOGGER.info(module.getName() + " - " + module.getDescription());
         }

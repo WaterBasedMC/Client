@@ -32,7 +32,7 @@ public class EntityGlow extends Module {
         LOGGER.info("EntityGlow disabled");
         ClientWorld world = MinecraftClient.getInstance().world;
         if (world == null) return;
-        LOGGER.info("EntityGlow enabled - world not null - entities");
+        LOGGER.info("EntityGlow disabled - world not null - entities");
         world.getEntities().forEach(entity -> entity.setGlowing(false));
     }
 
