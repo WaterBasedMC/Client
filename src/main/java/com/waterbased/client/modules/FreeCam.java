@@ -34,13 +34,6 @@ public class FreeCam extends Module {
 
     @Override
     public void onDisable() {
-
-//            e = new OtherClientPlayerEntity(MinecraftClient.getInstance().world, MinecraftClient.getInstance().player.getGameProfile());
-//            e.setGlowing(true);
-//            e.updatePositionAndAngles(MinecraftClient.getInstance().player.getX(), MinecraftClient.getInstance().player.getY(), MinecraftClient.getInstance().player.getZ(), MinecraftClient.getInstance().player.getYaw(), MinecraftClient.getInstance().player.getPitch());
-//            e.resetPosition();
-//            MinecraftClient.getInstance().world.addEntity(e.getId(), e);
-
         MinecraftClient.getInstance().player.setBoundingBox(new Box(MinecraftClient.getInstance().player.getPos(), MinecraftClient.getInstance().player.getPos()));
         MinecraftClient.getInstance().player.getAbilities().flying = false;
     }

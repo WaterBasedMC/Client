@@ -5,7 +5,6 @@
   "client": [
     "ClientMixin",
     "ClientWorldMixin",
-    "FreeCamMixin",
     "KeyboardMixin"
   ],
   "compatibilityLevel": "JAVA_17",
