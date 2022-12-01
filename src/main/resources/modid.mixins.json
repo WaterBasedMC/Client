@@ -4,6 +4,7 @@
   "package": "com.waterbased.client.mixin",
   "client": [
     "ClientMixin",
+    "ClientWorldMixin",
     "FreeCamMixin",
     "KeyboardMixin"
   ],
