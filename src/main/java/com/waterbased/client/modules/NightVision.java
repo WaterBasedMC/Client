@@ -17,7 +17,8 @@ public class NightVision extends Module {
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
         if (player == null) return;
         StatusEffectInstance nightVision = new StatusEffectInstance(StatusEffects.NIGHT_VISION, 99999,
-                1, false, false);
+                1, false, false
+        );
         nightVision.setPermanent(true);
         player.addStatusEffect(nightVision);
     }

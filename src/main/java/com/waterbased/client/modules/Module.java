@@ -25,7 +25,8 @@ public abstract class Module {
 
     public abstract void onDisable();
 
-    public void onTick() {}
+    public void onTick() {
+    }
 
     public abstract void onKey();
 

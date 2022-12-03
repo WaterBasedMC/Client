@@ -7,12 +7,12 @@ import net.minecraft.client.util.InputUtil;
 
 public class CreativeFly extends Module {
 
-    public CreativeFly() {
-        super("Creative Fly", "Allows you to fly in creative mode.",InputUtil.GLFW_KEY_F);
-    }
-
     private int ticks = 0;
     private boolean oldNoFallState = false;
+
+    public CreativeFly() {
+        super("Creative Fly", "Allows you to fly in creative mode.", InputUtil.GLFW_KEY_F);
+    }
 
     @Override
     public void onEnable() {

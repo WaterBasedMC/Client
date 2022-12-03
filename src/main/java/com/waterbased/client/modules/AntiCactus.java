@@ -1,7 +1,6 @@
 package com.waterbased.client.modules;
 
 import com.waterbased.client.Client;
-import net.minecraft.client.util.InputUtil;
 
 public class AntiCactus extends Module {
 

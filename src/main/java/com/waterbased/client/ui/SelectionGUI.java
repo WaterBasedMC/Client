@@ -27,7 +27,9 @@ public class SelectionGUI extends LightweightGuiDescription {
         gridRoot.setSize(300, 400);
         int offset = 0;
         for (Module module : Client.INSTANCE.MODULE_MANAGER.getModules()) {
-            String hotkey = " (Hotkey: " + (module.getKey() == null ? "none" : InputUtil.fromKeyCode(module.getKey(), 1).getLocalizedText().getString()) + ")";
+            String hotkey = " (Hotkey: " + (module.getKey() == null ? "none" : InputUtil.fromKeyCode(module.getKey(), 1)
+                    .getLocalizedText()
+                    .getString()) + ")";
             WButton button = new WButton(MutableText.of(new LiteralTextContent(module.getName() + hotkey))
                     .styled(style -> style
                             .withColor(module.isEnabled() ? Formatting.GREEN : Formatting.RED)
@@ -43,7 +45,7 @@ public class SelectionGUI extends LightweightGuiDescription {
             });
 
             panel.add(button, 50, offset, 200, 150);
-            offset+=20;
+            offset += 20;
         }
         gridRoot.validate(this);
     }

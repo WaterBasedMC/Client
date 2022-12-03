@@ -19,12 +19,12 @@ public class ClientWorldMixin {
     public void addEntity(int id, Entity entity, CallbackInfo ci) {
         if (ModuleManager.INSTANCE.getModule(EntityGlow.class) != null &&
                 ModuleManager.INSTANCE.getModule(EntityGlow.class).isEnabled()) {
-            Client.INSTANCE.LOGGER.info("EntityGlow: adding entity");
+            Client.LOGGER.info("EntityGlow: adding entity");
             if (entity instanceof LivingEntity) {
                 if (entity != MinecraftClient.getInstance().player) {
-                    Client.INSTANCE.LOGGER.info("Glowing entity: " + entity.getName().getString());
+                    Client.LOGGER.info("Glowing entity: " + entity.getName().getString());
                     entity.setGlowing(true);
-                    Client.INSTANCE.LOGGER.info("Success? " + entity.isGlowing() + " -- " + entity.isGlowingLocal());
+                    Client.LOGGER.info("Success? " + entity.isGlowing() + " -- " + entity.isGlowingLocal());
                 }
             }
         }

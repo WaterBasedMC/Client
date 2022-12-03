@@ -20,8 +20,8 @@ public class Client implements ModInitializer {
     public static final String MOD_NAME = "WaterBased";
     public static final String MOD_VERSION = "0.0.1b1";
     public static final Logger LOGGER = Logger.getLogger("WaterBased");
-    public static boolean LOG_TO_CHAT = true;
     public static final HUDInfo HUD = new HUDInfo();
+    public static boolean LOG_TO_CHAT = true;
     public final ModuleManager MODULE_MANAGER = ModuleManager.INSTANCE;
 
     @Override
@@ -52,7 +52,8 @@ public class Client implements ModInitializer {
                 // writes to mc chat (green = info, yellow = warning, red = severe)
                 if (MinecraftClient.getInstance().inGameHud != null) {
                     String color = record.getLevel() == Level.INFO ? "§a" : record.getLevel() == Level.WARNING ? "§eWarning: " : "§cError: ";
-                    MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of(color + record.getMessage()));
+                    MinecraftClient.getInstance().inGameHud.getChatHud()
+                            .addMessage(Text.of(color + record.getMessage()));
                 }
             }
 
@@ -96,7 +97,10 @@ public class Client implements ModInitializer {
     public void onKey(int key) {
         // ignores if menu is open
         if (MinecraftClient.getInstance().currentScreen == null) {
-            MODULE_MANAGER.getModules().stream().filter(module -> module.getKey() != null && module.getKey() == key).forEach(Module::onKey);
+            MODULE_MANAGER.getModules()
+                    .stream()
+                    .filter(module -> module.getKey() != null && module.getKey() == key)
+                    .forEach(Module::onKey);
             if (key == 96) { // ^
                 MinecraftClient.getInstance().setScreen(new CottonClientScreen(new SelectionGUI()));
             }

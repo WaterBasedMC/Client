@@ -27,12 +27,14 @@ public class NoFall extends Module {
         if (!this.isEnabled()) return;
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
         if (player == null) return;
-        if (player.fallDistance <= (player.isFallFlying() ? 1 : 2))
+        if (player.fallDistance <= (player.isFallFlying() ? 1 : 2)) {
             return;
+        }
 
         if (player.isFallFlying() && player.isSneaking()
-                && !(player.getVelocity().y < -0.5))
+                && !(player.getVelocity().y < -0.5)) {
             return;
+        }
 
         player.networkHandler.sendPacket(new PlayerMoveC2SPacket.OnGroundOnly(true));
     }
