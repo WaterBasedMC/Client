@@ -32,7 +32,7 @@ public class Client implements ModInitializer {
         MODULE_MANAGER.addModule(HUD);
         MODULE_MANAGER.addModule(new CreativeFly());
         MODULE_MANAGER.addModule(new NoFall());
-        MODULE_MANAGER.addModule(new FreeCam());
+        MODULE_MANAGER.addModule(new SpectatorCam());
         MODULE_MANAGER.addModule(new AntiCactus());
         MODULE_MANAGER.addModule(new NoSlowDown());
         MODULE_MANAGER.addModule(new EntityGlow());

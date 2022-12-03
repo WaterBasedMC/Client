@@ -18,13 +18,13 @@ import net.minecraft.world.GameMode;
 import java.util.Objects;
 import java.util.UUID;
 
-public class FreeCam extends Module {
+public class SpectatorCam extends Module {
     public boolean flying = false;
     private PlayerEntity clone = null;
     private GameMode oldGameMode = null;
 
-    public FreeCam() {
-        super("FreeCam", "Allows you to fly around and interact with the world without moving your player", InputUtil.GLFW_KEY_I);
+    public SpectatorCam() {
+        super("SpectatorCam", "Allows you to fly around in spectator mode", InputUtil.GLFW_KEY_M);
     }
 
     @Override
@@ -43,12 +43,11 @@ public class FreeCam extends Module {
         PlayerListEntry playerListEntry = Objects.requireNonNull(MinecraftClient.getInstance().getNetworkHandler())
                 .getPlayerListEntry(player.getUuid());
         if (playerListEntry != null) {
+            assert MinecraftClient.getInstance().interactionManager != null;
+            MinecraftClient.getInstance().interactionManager.setGameMode(GameMode.SPECTATOR);
             this.oldGameMode = playerListEntry.getGameMode();
-            ((PlayerListEntryInvoker) playerListEntry).setGameModeInvoker(GameMode.SPECTATOR); // TODO: Change to Creative Inventory? To break and place any block
-            player.getAbilities().flying = true;
+            ((PlayerListEntryInvoker) playerListEntry).setGameModeInvoker(GameMode.SPECTATOR);
         }
-
-
     }
 
     @Override
@@ -66,7 +65,8 @@ public class FreeCam extends Module {
                 .getPlayerListEntry(player.getUuid());
         if (playerListEntry != null && this.oldGameMode != null) {
             ((PlayerListEntryInvoker) playerListEntry).setGameModeInvoker(this.oldGameMode);
-            player.getAbilities().flying = false;
+            assert MinecraftClient.getInstance().interactionManager != null;
+            MinecraftClient.getInstance().interactionManager.setGameMode(this.oldGameMode);
         }
     }
 
