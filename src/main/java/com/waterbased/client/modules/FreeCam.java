@@ -32,21 +32,23 @@ public class FreeCam extends Module {
         assert MinecraftClient.getInstance().world != null;
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
         assert player != null;
-        this.clone = new OtherClientPlayerEntity(MinecraftClient.getInstance().world, new GameProfile(UUID.randomUUID(), player.getName().getString()), player.getPublicKey());
+        this.clone = new OtherClientPlayerEntity(MinecraftClient.getInstance().world, new GameProfile(UUID.randomUUID(), player.getName()
+                .getString()), player.getPublicKey());
         this.clone.copyPositionAndRotation(player);
         this.clone.setHeadYaw(player.getHeadYaw());
         this.clone.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 9999)); // TODO: Not working
 
         MinecraftClient.getInstance().world.addEntity(this.clone.getId(), this.clone);
         // change game mode to spectator
-        PlayerListEntry playerListEntry = Objects.requireNonNull(MinecraftClient.getInstance().getNetworkHandler()).getPlayerListEntry(player.getUuid());
+        PlayerListEntry playerListEntry = Objects.requireNonNull(MinecraftClient.getInstance().getNetworkHandler())
+                .getPlayerListEntry(player.getUuid());
         if (playerListEntry != null) {
             this.oldGameMode = playerListEntry.getGameMode();
             ((PlayerListEntryInvoker) playerListEntry).setGameModeInvoker(GameMode.SPECTATOR); // TODO: Change to Creative Inventory? To break and place any block
             player.getAbilities().flying = true;
         }
 
-        //TODO: Ignore resync packets during freecam
+
     }
 
     @Override
@@ -60,7 +62,8 @@ public class FreeCam extends Module {
 
         MinecraftClient.getInstance().world.removeEntity(this.clone.getId(), Entity.RemovalReason.DISCARDED);
         // change game mode back to survival
-        PlayerListEntry playerListEntry = Objects.requireNonNull(MinecraftClient.getInstance().getNetworkHandler()).getPlayerListEntry(player.getUuid());
+        PlayerListEntry playerListEntry = Objects.requireNonNull(MinecraftClient.getInstance().getNetworkHandler())
+                .getPlayerListEntry(player.getUuid());
         if (playerListEntry != null && this.oldGameMode != null) {
             ((PlayerListEntryInvoker) playerListEntry).setGameModeInvoker(this.oldGameMode);
             player.getAbilities().flying = false;
@@ -72,7 +75,9 @@ public class FreeCam extends Module {
         if (!this.isEnabled()) return;
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
         if (player == null) return;
-        player.networkHandler.sendPacket(new PlayerMoveC2SPacket.OnGroundOnly(true));
+        player.networkHandler.sendPacket(new PlayerMoveC2SPacket.OnGroundOnly(true)); // Prevents autokick for flying
+        // TODO: Redirect packets to clone or
+        // TODO: Ignore resync packets during freecam
     }
 
     @Override
