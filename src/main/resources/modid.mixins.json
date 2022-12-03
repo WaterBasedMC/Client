@@ -5,7 +5,9 @@
   "client": [
     "ClientMixin",
     "ClientWorldMixin",
-    "KeyboardMixin"
+    "FreeCamMixin",
+    "KeyboardMixin",
+    "PlayerListEntryInvoker"
   ],
   "compatibilityLevel": "JAVA_17",
   "injectors": {
