@@ -2,11 +2,12 @@ package com.waterbased.client.modules;
 
 import com.waterbased.client.Client;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.world.ClientWorld;
 
 public class EntityGlow extends Module {
     public EntityGlow() {
-        super("EntityGlow", "Lights up entities");
+        super("EntityGlow", "Lights up entities", InputUtil.GLFW_KEY_MINUS);
     }
 
     @Override
@@ -26,9 +27,7 @@ public class EntityGlow extends Module {
     }
 
     @Override
-    public void onKey(int key) {
-        if (key == 67) {
-            Client.INSTANCE.MODULE_MANAGER.getModule(this.getClass()).toggleState();
-        }
+    public void onKey() {
+        Client.INSTANCE.MODULE_MANAGER.getModule(this.getClass()).toggleState();
     }
 }

@@ -3,6 +3,7 @@ package com.waterbased.client.modules;
 import com.waterbased.client.Client;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.util.math.Box;
@@ -11,7 +12,7 @@ public class FreeCam extends Module {
     public boolean flying = false;
 
     public FreeCam() {
-        super("FreeCam", "Allows you to fly around and interact with the world without moving your player");
+        super("FreeCam", "Allows you to fly around and interact with the world without moving your player", InputUtil.GLFW_KEY_I);
     }
 
     @Override
@@ -38,9 +39,7 @@ public class FreeCam extends Module {
     }
 
     @Override
-    public void onKey(int key) {
-        if (key == 73) {
-            Client.INSTANCE.MODULE_MANAGER.getModule(this.getClass()).toggleState();
-        }
+    public void onKey() {
+        Client.INSTANCE.MODULE_MANAGER.getModule(this.getClass()).toggleState();
     }
 }

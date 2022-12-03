@@ -1,11 +1,12 @@
 package com.waterbased.client.modules;
 
 import com.waterbased.client.Client;
+import net.minecraft.client.util.InputUtil;
 
 public class AntiCactus extends Module {
 
     public AntiCactus() {
-        super("AntiCactus", "Prevents you from taking damage from cacti");
+        super("AntiCactus", "Prevents you from taking damage from cacti", null);
     }
 
     @Override
@@ -19,9 +20,7 @@ public class AntiCactus extends Module {
     }
 
     @Override
-    public void onKey(int key) {
-        if (key == 71) {
-            Client.INSTANCE.MODULE_MANAGER.getModule(this.getClass()).toggleState();
-        }
+    public void onKey() {
+        Client.INSTANCE.MODULE_MANAGER.getModule(this.getClass()).toggleState();
     }
 }

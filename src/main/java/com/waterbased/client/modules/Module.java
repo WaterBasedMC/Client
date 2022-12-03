@@ -1,17 +1,24 @@
 package com.waterbased.client.modules;
 
 import com.waterbased.client.Client;
+import org.jetbrains.annotations.Nullable;
 
 public abstract class Module {
 
     private final String name;
     private final String description;
     private boolean enabled;
+    private Integer key;
 
     public Module(String name, String description) {
+        this(name, description, null);
+    }
+
+    public Module(String name, String description, @Nullable Integer key) {
         this.name = name;
         this.description = description;
         this.enabled = false;
+        this.key = key;
     }
 
     public abstract void onEnable();
@@ -20,7 +27,7 @@ public abstract class Module {
 
     public void onTick() {}
 
-    public abstract void onKey(int key);
+    public abstract void onKey();
 
     public boolean isEnabled() {
         return this.enabled;
@@ -32,6 +39,14 @@ public abstract class Module {
 
     public String getDescription() {
         return this.description;
+    }
+
+    public @Nullable Integer getKey() {
+        return this.key;
+    }
+
+    public void setKey(@Nullable Integer key) {
+        this.key = key;
     }
 
     public void toggleState() {
@@ -46,8 +61,8 @@ public abstract class Module {
     }
 
     private void callActivationCallbacks() {
-        Client.INSTANCE.HUD.onModuleStateChange(this);
-        Client.INSTANCE.LOGGER.info(this.name + " is now " + (this.enabled ? "enabled" : "disabled"));
+        Client.HUD.onModuleStateChange(this);
+        Client.LOGGER.info(this.name + " is now " + (this.enabled ? "enabled" : "disabled"));
         if (this.enabled) {
             this.onEnable();
         } else {

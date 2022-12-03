@@ -51,7 +51,7 @@ public class Client implements ModInitializer {
                 if (!LOG_TO_CHAT) return;
                 // writes to mc chat (green = info, yellow = warning, red = severe)
                 if (MinecraftClient.getInstance().inGameHud != null) {
-                    String color = record.getLevel() == Level.INFO ? "§a" : record.getLevel() == Level.WARNING ? "§e" : "§c";
+                    String color = record.getLevel() == Level.INFO ? "§a" : record.getLevel() == Level.WARNING ? "§eWarning: " : "§cError: ";
                     MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of(color + record.getMessage()));
                 }
             }
@@ -96,7 +96,7 @@ public class Client implements ModInitializer {
     public void onKey(int key) {
         // ignores if menu is open
         if (MinecraftClient.getInstance().currentScreen == null) {
-            MODULE_MANAGER.getModules().forEach(module -> module.onKey(key));
+            MODULE_MANAGER.getModules().stream().filter(module -> module.getKey() != null && module.getKey() == key).forEach(Module::onKey);
             if (key == 96) { // ^
                 MinecraftClient.getInstance().setScreen(new CottonClientScreen(new SelectionGUI()));
             }

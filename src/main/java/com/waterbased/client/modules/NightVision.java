@@ -3,12 +3,13 @@ package com.waterbased.client.modules;
 import com.waterbased.client.Client;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 
 public class NightVision extends Module {
     public NightVision() {
-        super("NightVision", "Allows you to see in the dark");
+        super("NightVision", "Allows you to see in the dark", InputUtil.GLFW_KEY_M);
     }
 
     @Override
@@ -29,9 +30,7 @@ public class NightVision extends Module {
     }
 
     @Override
-    public void onKey(int key) {
-        if (key == 77) { // M
-            Client.INSTANCE.MODULE_MANAGER.getModule(this.getClass()).toggleState();
-        }
+    public void onKey() {
+        Client.INSTANCE.MODULE_MANAGER.getModule(this.getClass()).toggleState();
     }
 }

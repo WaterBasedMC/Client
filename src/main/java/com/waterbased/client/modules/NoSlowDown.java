@@ -1,11 +1,12 @@
 package com.waterbased.client.modules;
 
 import com.waterbased.client.Client;
+import net.minecraft.client.util.InputUtil;
 
 public class NoSlowDown extends Module {
 
     public NoSlowDown() {
-        super("NoSlowDown", "Prevents you from slowing down, when using items or going through blocks");
+        super("NoSlowDown", "Prevents you from slowing down, when using items or going through blocks", InputUtil.GLFW_KEY_B);
     }
 
     @Override
@@ -23,9 +24,7 @@ public class NoSlowDown extends Module {
     }
 
     @Override
-    public void onKey(int key) {
-        if (key == 70) {
-            Client.INSTANCE.MODULE_MANAGER.getModule(this.getClass()).toggleState();
-        }
+    public void onKey() {
+        Client.INSTANCE.MODULE_MANAGER.getModule(this.getClass()).toggleState();
     }
 }

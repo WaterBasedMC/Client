@@ -3,12 +3,13 @@ package com.waterbased.client.modules;
 import com.waterbased.client.Client;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.util.InputUtil;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 
 public class NoFall extends Module {
 
     public NoFall() {
-        super("NoFall", "Prevents you from taking fall damage");
+        super("NoFall", "Prevents you from taking fall damage", InputUtil.GLFW_KEY_N);
     }
 
     @Override
@@ -37,9 +38,7 @@ public class NoFall extends Module {
     }
 
     @Override
-    public void onKey(int key) {
-        if (key == 74) {
-            Client.INSTANCE.MODULE_MANAGER.getModule(this.getClass()).toggleState();
-        }
+    public void onKey() {
+        Client.INSTANCE.MODULE_MANAGER.getModule(this.getClass()).toggleState();
     }
 }

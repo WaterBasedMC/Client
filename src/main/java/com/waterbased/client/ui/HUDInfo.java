@@ -19,7 +19,7 @@ public class HUDInfo extends Module {
     private final List<WLabel> widgets = new ArrayList<>();
 
     public HUDInfo() {
-        super("HUD", "Displays information on the screen");
+        super("HUD", "Displays information on the screen", InputUtil.GLFW_KEY_KP_0);
     }
 
     @Override
@@ -82,12 +82,8 @@ public class HUDInfo extends Module {
     }
 
     @Override
-    public void onKey(int key) {
-        if (key == InputUtil.GLFW_KEY_KP_0) { // 0
-            Client.INSTANCE.MODULE_MANAGER.getModule(this.getClass()).toggleState();
-        } else if (key == InputUtil.GLFW_KEY_KP_1) { // 1 // TODO: Just for hot reloading
-            reset();
-        }
+    public void onKey() {
+        Client.INSTANCE.MODULE_MANAGER.getModule(this.getClass()).toggleState();
     }
 
     private void reset() {

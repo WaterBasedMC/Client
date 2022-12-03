@@ -3,11 +3,12 @@ package com.waterbased.client.modules;
 import com.waterbased.client.Client;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.util.InputUtil;
 
 public class CreativeFly extends Module {
 
     public CreativeFly() {
-        super("Creative Fly", "Allows you to fly in creative mode.");
+        super("Creative Fly", "Allows you to fly in creative mode.",InputUtil.GLFW_KEY_F);
     }
 
     private int ticks = 0;
@@ -59,9 +60,8 @@ public class CreativeFly extends Module {
     }
 
     @Override
-    public void onKey(int key) {
-        if (key == 72) {
-            Client.INSTANCE.MODULE_MANAGER.getModule(this.getClass()).toggleState();
-        }
+    public void onKey() {
+        Client.INSTANCE.MODULE_MANAGER.getModule(this.getClass()).toggleState();
+
     }
 }
