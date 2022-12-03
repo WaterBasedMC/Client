@@ -3,6 +3,8 @@ package com.waterbased.client;
 import com.waterbased.client.modules.Module;
 import com.waterbased.client.modules.*;
 import com.waterbased.client.ui.HUDInfo;
+import com.waterbased.client.ui.SelectionGUI;
+import io.github.cottonmc.cotton.gui.client.CottonClientScreen;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
@@ -26,7 +28,6 @@ public class Client implements ModInitializer {
     public void onInitialize() {
         setupLogger();
         LOGGER.info("Hello Fabric world!");
-        HUD.forceState(true);
         HUD.setupContent();
         MODULE_MANAGER.addModule(HUD);
         MODULE_MANAGER.addModule(new CreativeFly());
@@ -39,6 +40,7 @@ public class Client implements ModInitializer {
         for (Module module : MODULE_MANAGER.getModules()) {
             LOGGER.info(module.getName() + " - " + module.getDescription());
         }
+        MODULE_MANAGER.sortModules(true, true);
     }
 
     private void setupLogger() {
@@ -95,6 +97,9 @@ public class Client implements ModInitializer {
         // ignores if menu is open
         if (MinecraftClient.getInstance().currentScreen == null) {
             MODULE_MANAGER.getModules().forEach(module -> module.onKey(key));
+            if (key == 96) { // ^
+                MinecraftClient.getInstance().setScreen(new CottonClientScreen(new SelectionGUI()));
+            }
         }
     }
 }
