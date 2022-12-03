@@ -1,10 +1,9 @@
 package com.waterbased.client.modules;
 
+import com.waterbased.client.Client;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
-
-import static com.waterbased.client.Client.MODULE_MANAGER;
 
 public class NoFall extends Module {
 
@@ -40,7 +39,7 @@ public class NoFall extends Module {
     @Override
     public void onKey(int key) {
         if (key == 74) {
-            MODULE_MANAGER.getModule(this.getClass()).toggleState();
+            Client.INSTANCE.MODULE_MANAGER.getModule(this.getClass()).toggleState();
         }
     }
 }

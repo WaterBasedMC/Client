@@ -2,6 +2,7 @@ package com.waterbased.client;
 
 import com.waterbased.client.modules.Module;
 import com.waterbased.client.modules.*;
+import com.waterbased.client.ui.HUDInfo;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
@@ -12,15 +13,22 @@ import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
 public class Client implements ModInitializer {
+
+    public static final Client INSTANCE = new Client();
+    public static final String MOD_NAME = "WaterBased";
+    public static final String MOD_VERSION = "0.0.1b1";
     public static final Logger LOGGER = Logger.getLogger("WaterBased");
     public static boolean LOG_TO_CHAT = true;
-    public static final Client INSTANCE = new Client();
-    public static final ModuleManager MODULE_MANAGER = ModuleManager.INSTANCE;
+    public static final HUDInfo HUD = new HUDInfo();
+    public final ModuleManager MODULE_MANAGER = ModuleManager.INSTANCE;
 
     @Override
     public void onInitialize() {
         setupLogger();
         LOGGER.info("Hello Fabric world!");
+        HUD.forceState(true);
+        HUD.setupContent();
+        MODULE_MANAGER.addModule(HUD);
         MODULE_MANAGER.addModule(new CreativeFly());
         MODULE_MANAGER.addModule(new NoFall());
         MODULE_MANAGER.addModule(new FreeCam());

@@ -18,7 +18,7 @@ public abstract class Module {
 
     public abstract void onDisable();
 
-    public abstract void onTick();
+    public void onTick() {}
 
     public abstract void onKey(int key);
 
@@ -46,7 +46,8 @@ public abstract class Module {
     }
 
     private void callActivationCallbacks() {
-        Client.LOGGER.info(this.name + " is now " + (this.enabled ? "enabled" : "disabled"));
+        Client.INSTANCE.HUD.onModuleStateChange(this);
+        Client.INSTANCE.LOGGER.info(this.name + " is now " + (this.enabled ? "enabled" : "disabled"));
         if (this.enabled) {
             this.onEnable();
         } else {

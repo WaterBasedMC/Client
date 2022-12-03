@@ -1,9 +1,8 @@
 package com.waterbased.client.modules;
 
+import com.waterbased.client.Client;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
-
-import static com.waterbased.client.Client.MODULE_MANAGER;
 
 public class EntityGlow extends Module {
     public EntityGlow() {
@@ -27,13 +26,9 @@ public class EntityGlow extends Module {
     }
 
     @Override
-    public void onTick() {
-    }
-
-    @Override
     public void onKey(int key) {
         if (key == 67) {
-            MODULE_MANAGER.getModule(this.getClass()).toggleState();
+            Client.INSTANCE.MODULE_MANAGER.getModule(this.getClass()).toggleState();
         }
     }
 }

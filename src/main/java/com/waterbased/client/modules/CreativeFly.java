@@ -1,9 +1,8 @@
 package com.waterbased.client.modules;
 
+import com.waterbased.client.Client;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
-
-import static com.waterbased.client.Client.MODULE_MANAGER;
 
 public class CreativeFly extends Module {
 
@@ -17,14 +16,14 @@ public class CreativeFly extends Module {
     @Override
     public void onEnable() {
         this.ticks = 0;
-        NoFall nf = (NoFall) MODULE_MANAGER.getModule(NoFall.class);
+        NoFall nf = (NoFall) Client.INSTANCE.MODULE_MANAGER.getModule(NoFall.class);
         this.oldNoFallState = nf.isEnabled();
         nf.forceState(true);
     }
 
     @Override
     public void onDisable() {
-        NoFall nf = (NoFall) MODULE_MANAGER.getModule(NoFall.class);
+        NoFall nf = (NoFall) Client.INSTANCE.MODULE_MANAGER.getModule(NoFall.class);
         nf.forceState(this.oldNoFallState);
     }
 
@@ -62,7 +61,7 @@ public class CreativeFly extends Module {
     @Override
     public void onKey(int key) {
         if (key == 72) {
-            MODULE_MANAGER.getModule(this.getClass()).toggleState();
+            Client.INSTANCE.MODULE_MANAGER.getModule(this.getClass()).toggleState();
         }
     }
 }

@@ -1,11 +1,10 @@
 package com.waterbased.client.modules;
 
+import com.waterbased.client.Client;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-
-import static com.waterbased.client.Client.MODULE_MANAGER;
 
 public class NightVision extends Module {
     public NightVision() {
@@ -30,13 +29,9 @@ public class NightVision extends Module {
     }
 
     @Override
-    public void onTick() {
-    }
-
-    @Override
     public void onKey(int key) {
         if (key == 77) { // M
-            MODULE_MANAGER.getModule(this.getClass()).toggleState();
+            Client.INSTANCE.MODULE_MANAGER.getModule(this.getClass()).toggleState();
         }
     }
 }

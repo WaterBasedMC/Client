@@ -1,6 +1,6 @@
 package com.waterbased.client.modules;
 
-import static com.waterbased.client.Client.MODULE_MANAGER;
+import com.waterbased.client.Client;
 
 public class NoSlowDown extends Module {
 
@@ -23,13 +23,9 @@ public class NoSlowDown extends Module {
     }
 
     @Override
-    public void onTick() {
-    }
-
-    @Override
     public void onKey(int key) {
         if (key == 70) {
-            MODULE_MANAGER.getModule(this.getClass()).toggleState();
+            Client.INSTANCE.MODULE_MANAGER.getModule(this.getClass()).toggleState();
         }
     }
 }

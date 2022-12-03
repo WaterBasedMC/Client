@@ -14,4 +14,5 @@ public class ClientMixin {
     public void onTick(CallbackInfo ci) {
         Client.INSTANCE.onTick();
     }
+
 }
