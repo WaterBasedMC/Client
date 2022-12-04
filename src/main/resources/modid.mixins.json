@@ -18,6 +18,7 @@
     "CactusMixin",
     "ClientPlayerEntityMixin",
     "PlayerEntityMixin",
+    "SlimeMixin",
     "SlowdownMixin"
   ]
 }
