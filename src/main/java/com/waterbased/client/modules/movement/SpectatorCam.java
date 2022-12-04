@@ -12,7 +12,6 @@ import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.world.GameMode;
 
@@ -21,11 +20,16 @@ import java.util.UUID;
 
 public class SpectatorCam extends Module {
     public boolean flying = false;
-    private PlayerEntity clone = null;
+    private OtherClientPlayerEntity clone = null;
     private GameMode oldGameMode = null;
 
     public SpectatorCam() {
         super("SpectatorCam", "Allows you to fly around in spectator mode", InputUtil.GLFW_KEY_M);
+    }
+
+
+    public OtherClientPlayerEntity getClone() {
+        return clone;
     }
 
     @Override
