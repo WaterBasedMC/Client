@@ -1,6 +1,8 @@
 package com.waterbased.client.modules;
 
 import com.waterbased.client.Client;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.util.math.MatrixStack;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class Module {
@@ -27,9 +29,9 @@ public abstract class Module {
 
     public void onTick() {}
 
-    public void onRenderInGameHUD() {}
+    public void onRenderInGameHUD(MatrixStack matrices, float tickDelta) {}
 
-    public void onRenderLevel() {}
+    public void onRenderLevel(MatrixStack matrices, VertexConsumerProvider.Immediate immediate, double cameraX, double cameraY, double cameraZ) {}
 
     public abstract void onKey();
 

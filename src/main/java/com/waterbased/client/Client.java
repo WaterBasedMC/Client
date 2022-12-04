@@ -17,6 +17,8 @@ import com.waterbased.client.util.ChatManager;
 import io.github.cottonmc.cotton.gui.client.CottonClientScreen;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 
 import java.util.logging.Handler;
@@ -107,12 +109,12 @@ public class Client implements ModInitializer {
         MODULE_MANAGER.getModules().stream().filter(Module::isEnabled).forEach(Module::onTick);
     }
 
-    public void onRenderInGameHUD() {
-        MODULE_MANAGER.getModules().stream().filter(Module::isEnabled).forEach(Module::onRenderInGameHUD);
+    public void onRenderInGameHUD(MatrixStack matrices, float tickDelta) {
+        MODULE_MANAGER.getModules().stream().filter(Module::isEnabled).forEach(m -> m.onRenderInGameHUD(matrices, tickDelta));
     }
 
-    public void onRenderLevel() {
-        MODULE_MANAGER.getModules().stream().filter(Module::isEnabled).forEach(Module::onRenderLevel);
+    public void onRenderLevel(MatrixStack matrices, VertexConsumerProvider.Immediate immediate, double cameraX, double cameraY, double cameraZ) {
+        MODULE_MANAGER.getModules().stream().filter(Module::isEnabled).forEach(m -> m.onRenderLevel(matrices, immediate, cameraX, cameraY, cameraZ));
     }
 
     public void onKey(int key) {
