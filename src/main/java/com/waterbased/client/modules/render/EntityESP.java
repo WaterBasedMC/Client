@@ -1,8 +1,13 @@
 package com.waterbased.client.modules.render;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.waterbased.client.Client;
 import com.waterbased.client.modules.Module;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.BufferBuilder;
+import net.minecraft.client.render.Tessellator;
+import net.minecraft.client.render.VertexFormat;
+import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
@@ -35,6 +40,16 @@ public class EntityESP extends Module {
                 this.setEntityGlow(le, true);
             }
         }
+
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder buffer = tessellator.getBuffer();
+        buffer.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION);
+        buffer.vertex(0, 0, 0).next();
+        buffer.vertex(1, 0, 0).next();
+        buffer.vertex(1, 1, 0).next();
+        buffer.vertex(0, 1, 0).next();
+        buffer.color(0x80FF0000);
+        tessellator.draw();
     }
 
     @Override

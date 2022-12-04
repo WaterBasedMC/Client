@@ -3,11 +3,12 @@
   "minVersion": "0.8",
   "package": "com.waterbased.client.mixin",
   "client": [
-    "MinecraftClientMixin",
-    "ClientWorldMixin",
+    "CameraMixin",
     "ClientPlayerNetworkHandlerMixin",
+    "ClientWorldMixin",
     "FreeCamMixin",
     "KeyboardMixin",
+    "MinecraftClientMixin",
     "PlayerListEntryInvoker"
   ],
   "compatibilityLevel": "JAVA_17",
@@ -15,11 +16,11 @@
     "defaultRequire": 1
   },
   "mixins": [
+    "BlockMixin",
     "CactusBlockMixin",
     "ClientPlayerEntityMixin",
     "EntityAttributeInstanceMixin",
     "PlayerEntityMixin",
-    "SlimeBlockMixin",
-    "BlockMixin"
+    "SlimeBlockMixin"
   ]
 }

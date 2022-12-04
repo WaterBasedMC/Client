@@ -5,6 +5,7 @@ import com.waterbased.client.modules.ModuleManager;
 import com.waterbased.client.modules.movement.Flight;
 import com.waterbased.client.modules.movement.NoSlowDown;
 import com.waterbased.client.modules.movement.SpectatorCam;
+import com.waterbased.client.modules.render.ClearSight;
 import com.waterbased.client.modules.render.EntityESP;
 import com.waterbased.client.modules.render.NightVision;
 import com.waterbased.client.modules.utilities.AntiCactus;
@@ -48,6 +49,7 @@ public class Client implements ModInitializer {
         MODULE_MANAGER.addModule(new EntityESP());
         MODULE_MANAGER.addModule(new NightVision());
         MODULE_MANAGER.addModule(new PlayerAlert());
+        MODULE_MANAGER.addModule(new ClearSight());
         for (Module module : MODULE_MANAGER.getModules()) {
             LOGGER.info(module.getName() + " - " + module.getDescription());
         }
