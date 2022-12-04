@@ -2,7 +2,7 @@ package com.waterbased.client;
 
 import com.waterbased.client.modules.Module;
 import com.waterbased.client.modules.ModuleManager;
-import com.waterbased.client.modules.movement.CreativeFly;
+import com.waterbased.client.modules.movement.Flight;
 import com.waterbased.client.modules.movement.NoSlowDown;
 import com.waterbased.client.modules.movement.SpectatorCam;
 import com.waterbased.client.modules.render.EntityESP;
@@ -40,7 +40,7 @@ public class Client implements ModInitializer {
         LOGGER.info("Hello Fabric world!");
         HUD.setupContent();
         MODULE_MANAGER.addModule(HUD);
-        MODULE_MANAGER.addModule(new CreativeFly());
+        MODULE_MANAGER.addModule(new Flight());
         MODULE_MANAGER.addModule(new NoFall());
         MODULE_MANAGER.addModule(new SpectatorCam());
         MODULE_MANAGER.addModule(new AntiCactus());

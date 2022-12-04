@@ -7,13 +7,13 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.util.InputUtil;
 
-public class CreativeFly extends Module {
+public class Flight extends Module {
 
     private int ticks = 0;
     private boolean oldNoFallState = false;
 
-    public CreativeFly() {
-        super("Creative Fly", "Allows you to fly in creative mode.", InputUtil.GLFW_KEY_F);
+    public Flight() {
+        super("Flight", "Allows you to fly in survival/adventure mode", InputUtil.GLFW_KEY_F);
     }
 
     @Override
