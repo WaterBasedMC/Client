@@ -22,7 +22,6 @@ public class EntityESP extends Module {
 
     @Override
     public void onEnable() {
-        // see mixin\ClientWorldMixin
         ClientWorld world = MinecraftClient.getInstance().world;
         if (world == null) return;
 
@@ -39,7 +38,6 @@ public class EntityESP extends Module {
 
     @Override
     public void onDisable() {
-        // see mixin\ClientWorldMixin
         ClientWorld world = MinecraftClient.getInstance().world;
         if (world == null) return;
 
