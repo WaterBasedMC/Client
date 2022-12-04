@@ -12,6 +12,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class FreeCamMixin {
     SpectatorCam spectatorCam = (SpectatorCam) Client.INSTANCE.MODULE_MANAGER.getModule(SpectatorCam.class);
 
+    // TODO: Can be deleted
+
     @Inject(at = @At("HEAD"), method = "pushOutOfBlocks", cancellable = true)
     void pushOutOfBlocks(CallbackInfo ci) {
         if (spectatorCam.isEnabled()) ci.cancel();
