@@ -2,12 +2,14 @@ package com.waterbased.client.mixin;
 
 import com.waterbased.client.Client;
 import com.waterbased.client.modules.EntityGlow;
+import com.waterbased.client.ui.HUDInfo;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.network.packet.s2c.play.EntityTrackerUpdateS2CPacket;
+import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -37,8 +39,9 @@ public class ClientPlayerNetworkHandlerMixin {
 
     }
 
-
-
-
+    @Inject(at = @At("TAIL"), method = "onGameJoin", cancellable = true)
+    void onGameJoin(GameJoinS2CPacket packet, CallbackInfo ci) {
+        Client.INSTANCE.MODULE_MANAGER.getModule(HUDInfo.class).forceState(true);
+    }
 
 }
