@@ -17,6 +17,7 @@
   "mixins": [
     "CactusMixin",
     "ClientPlayerEntityMixin",
+    "EntityAttributeInstanceMixin",
     "PlayerEntityMixin",
     "SlimeMixin",
     "SlowdownMixin"
