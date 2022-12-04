@@ -1,13 +1,20 @@
 package com.waterbased.client.modules.render;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.waterbased.client.Client;
 import com.waterbased.client.modules.Module;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.render.*;
+import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.data.DataTracker;
+import net.minecraft.util.math.Matrix4f;
 
 import java.util.HashSet;
 import java.util.List;
@@ -52,10 +59,28 @@ public class EntityESP extends Module {
     }
 
     @Override
-    public void onRenderInGameHUD() {
+    public void onRenderLevel(MatrixStack matrices, VertexConsumerProvider.Immediate immediate, double cameraX, double cameraY, double cameraZ) {
 
-        MatrixStack ms = new MatrixStack();
-        ms.translate(0, 5, 0);
+        RenderSystem.disableDepthTest();
+        RenderSystem.setShader(GameRenderer::getPositionColorShader);
+        Tessellator tessellator = Tessellator.getInstance();
+
+        RenderSystem.disableTexture();
+
+        BufferBuilder bufferBuilder = tessellator.getBuffer();
+
+        RenderSystem.lineWidth(2.0f);
+        bufferBuilder.begin(VertexFormat.DrawMode.LINE_STRIP, VertexFormats.POSITION_COLOR);
+        bufferBuilder.vertex(0 - cameraX, 5 - cameraY, 0 - cameraZ).color(0x80FF0000).next();
+        bufferBuilder.vertex(0 - cameraX, 5 - cameraY, 0 - cameraZ).color(0x80FF0000).next();
+        bufferBuilder.vertex(5 - cameraX, 5 - cameraY, 0 - cameraZ).color(0x80FF0000).next();
+        bufferBuilder.vertex(0 - cameraX, 5 - cameraY, 5 - cameraZ).color(0x80FF0000).next();
+        tessellator.draw();
+
+        RenderSystem.enableBlend();
+        RenderSystem.enableTexture();
+
+        System.out.println("Render");
 
     }
 

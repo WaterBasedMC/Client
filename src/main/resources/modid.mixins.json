@@ -5,12 +5,14 @@
   "client": [
     "CameraMixin",
     "ClientPlayerNetworkHandlerMixin",
+    "ClientWorldMixin",
+    "DebugRendererMixin",
     "FreeCamMixin",
-    "GameRendererMixin",
     "InGameHudMixin",
     "KeyboardMixin",
     "MinecraftClientMixin",
-    "PlayerListEntryInvoker"
+    "PlayerListEntryInvoker",
+    "WorldRendererMixin"
   ],
   "compatibilityLevel": "JAVA_17",
   "injectors": {
