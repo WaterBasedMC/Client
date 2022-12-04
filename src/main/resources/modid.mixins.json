@@ -5,7 +5,6 @@
   "client": [
     "CameraMixin",
     "ClientPlayerNetworkHandlerMixin",
-    "ClientWorldMixin",
     "DebugRendererMixin",
     "FreeCamMixin",
     "InGameHudMixin",
