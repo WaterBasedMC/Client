@@ -25,8 +25,11 @@ public abstract class Module {
 
     public abstract void onDisable();
 
-    public void onTick() {
-    }
+    public void onTick() {}
+
+    public void onRenderInGameHUD() {}
+
+    public void onRenderLevel() {}
 
     public abstract void onKey();
 

@@ -104,7 +104,15 @@ public class Client implements ModInitializer {
     }
 
     public void onTick() {
-        MODULE_MANAGER.getModules().forEach(Module::onTick);
+        MODULE_MANAGER.getModules().stream().filter(Module::isEnabled).forEach(Module::onTick);
+    }
+
+    public void onRenderInGameHUD() {
+        MODULE_MANAGER.getModules().stream().filter(Module::isEnabled).forEach(Module::onRenderInGameHUD);
+    }
+
+    public void onRenderLevel() {
+        MODULE_MANAGER.getModules().stream().filter(Module::isEnabled).forEach(Module::onRenderLevel);
     }
 
     public void onKey(int key) {

@@ -7,6 +7,8 @@
     "ClientPlayerNetworkHandlerMixin",
     "ClientWorldMixin",
     "FreeCamMixin",
+    "GameRendererMixin",
+    "InGameHudMixin",
     "KeyboardMixin",
     "MinecraftClientMixin",
     "PlayerListEntryInvoker"
