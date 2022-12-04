@@ -1,6 +1,5 @@
 package com.waterbased.client.modules.render;
 
-import com.waterbased.client.Client;
 import com.waterbased.client.modules.Module;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -31,8 +30,4 @@ public class NightVision extends Module {
         player.removeStatusEffect(StatusEffects.NIGHT_VISION);
     }
 
-    @Override
-    public void onKey() {
-        Client.INSTANCE.MODULE_MANAGER.getModule(this.getClass()).toggleState();
-    }
 }

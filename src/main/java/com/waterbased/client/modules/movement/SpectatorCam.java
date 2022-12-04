@@ -1,7 +1,6 @@
 package com.waterbased.client.modules.movement;
 
 import com.mojang.authlib.GameProfile;
-import com.waterbased.client.Client;
 import com.waterbased.client.mixin.PlayerListEntryInvoker;
 import com.waterbased.client.modules.Module;
 import net.minecraft.client.MinecraftClient;
@@ -81,12 +80,6 @@ public class SpectatorCam extends Module {
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
         if (player == null) return;
         player.networkHandler.sendPacket(new PlayerMoveC2SPacket.OnGroundOnly(true)); // Prevents autokick for flying
-        // TODO: Redirect packets to clone or
-        // TODO: Ignore resync packets during freecam
     }
 
-    @Override
-    public void onKey() {
-        Client.INSTANCE.MODULE_MANAGER.getModule(this.getClass()).toggleState();
-    }
 }
