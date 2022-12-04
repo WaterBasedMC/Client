@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Block.class)
-public class SlowdownMixin {
+public class BlockMixin {
 
     @Inject(at = @At("HEAD"), method = "getVelocityMultiplier()F", cancellable = true)
     public void getVelocityMultiplier(CallbackInfoReturnable<Float> cir) {

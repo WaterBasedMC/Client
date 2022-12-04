@@ -16,9 +16,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(CactusBlock.class)
-public class CactusMixin extends Block {
+public class CactusBlockMixin extends Block {
 
-    public CactusMixin(Settings settings) {
+    public CactusBlockMixin(Settings settings) {
         super(settings);
     }
 
