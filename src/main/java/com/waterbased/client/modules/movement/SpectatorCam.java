@@ -1,7 +1,6 @@
 package com.waterbased.client.modules.movement;
 
 import com.mojang.authlib.GameProfile;
-import com.waterbased.client.Client;
 import com.waterbased.client.mixin.PlayerListEntryInvoker;
 import com.waterbased.client.modules.Module;
 import net.minecraft.client.MinecraftClient;
@@ -12,7 +11,6 @@ import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.world.GameMode;
 
@@ -21,11 +19,16 @@ import java.util.UUID;
 
 public class SpectatorCam extends Module {
     public boolean flying = false;
-    private PlayerEntity clone = null;
+    private OtherClientPlayerEntity clone = null;
     private GameMode oldGameMode = null;
 
     public SpectatorCam() {
         super("SpectatorCam", "Allows you to fly around in spectator mode", InputUtil.GLFW_KEY_M);
+    }
+
+
+    public OtherClientPlayerEntity getClone() {
+        return clone;
     }
 
     @Override
@@ -77,12 +80,6 @@ public class SpectatorCam extends Module {
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
         if (player == null) return;
         player.networkHandler.sendPacket(new PlayerMoveC2SPacket.OnGroundOnly(true)); // Prevents autokick for flying
-        // TODO: Redirect packets to clone or
-        // TODO: Ignore resync packets during freecam
     }
 
-    @Override
-    public void onKey() {
-        Client.INSTANCE.MODULE_MANAGER.getModule(this.getClass()).toggleState();
-    }
 }

@@ -60,10 +60,4 @@ public class Flight extends Module {
             player.setVelocity(player.getVelocity().x, 0.07, player.getVelocity().z);
         }
     }
-
-    @Override
-    public void onKey() {
-        Client.INSTANCE.MODULE_MANAGER.getModule(this.getClass()).toggleState();
-
-    }
 }

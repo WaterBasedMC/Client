@@ -33,7 +33,9 @@ public abstract class Module {
 
     public void onRenderLevel(MatrixStack matrices, VertexConsumerProvider.Immediate immediate, double cameraX, double cameraY, double cameraZ) {}
 
-    public abstract void onKey();
+    public void onKey() {
+        Client.INSTANCE.MODULE_MANAGER.getModule(this.getClass()).toggleState();
+    };
 
     public boolean isEnabled() {
         return this.enabled;

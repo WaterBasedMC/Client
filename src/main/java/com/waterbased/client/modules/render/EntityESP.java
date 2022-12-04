@@ -1,6 +1,5 @@
 package com.waterbased.client.modules.render;
 
-import com.waterbased.client.Client;
 import com.waterbased.client.modules.Module;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.InputUtil;
@@ -23,7 +22,6 @@ public class EntityESP extends Module {
 
     @Override
     public void onEnable() {
-        // see mixin\ClientWorldMixin
         ClientWorld world = MinecraftClient.getInstance().world;
         if (world == null) return;
 
@@ -40,7 +38,6 @@ public class EntityESP extends Module {
 
     @Override
     public void onDisable() {
-        // see mixin\ClientWorldMixin
         ClientWorld world = MinecraftClient.getInstance().world;
         if (world == null) return;
 
@@ -60,11 +57,6 @@ public class EntityESP extends Module {
         MatrixStack ms = new MatrixStack();
         ms.translate(0, 5, 0);
 
-    }
-
-    @Override
-    public void onKey() {
-        Client.INSTANCE.MODULE_MANAGER.getModule(this.getClass()).toggleState();
     }
 
     public void onEntitySpawn(Entity entity) {

@@ -1,6 +1,5 @@
 package com.waterbased.client.modules.render;
 
-import com.waterbased.client.Client;
 import com.waterbased.client.modules.Module;
 import net.minecraft.client.util.InputUtil;
 
@@ -15,10 +14,5 @@ public class ClearSight extends Module {
 
     @Override
     public void onDisable() {}
-
-    @Override
-    public void onKey() {
-        Client.INSTANCE.MODULE_MANAGER.getModule(this.getClass()).toggleState();
-    }
 
 }
