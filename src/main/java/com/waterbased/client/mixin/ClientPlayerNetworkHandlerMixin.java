@@ -1,12 +1,11 @@
 package com.waterbased.client.mixin;
 
 import com.waterbased.client.Client;
-import com.waterbased.client.modules.EntityGlow;
+import com.waterbased.client.modules.EntityESP;
 import com.waterbased.client.ui.HUDInfo;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.network.packet.s2c.play.EntityTrackerUpdateS2CPacket;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
@@ -22,9 +21,9 @@ public class ClientPlayerNetworkHandlerMixin {
     @Inject(at = @At("TAIL"), method = "onEntitySpawn", cancellable = true)
     void onEntitySpawn(EntitySpawnS2CPacket packet, CallbackInfo ci) {
 
-        if(Client.INSTANCE.MODULE_MANAGER.getModule(EntityGlow.class).isEnabled()) {
+        if(Client.INSTANCE.MODULE_MANAGER.getModule(EntityESP.class).isEnabled()) {
             Entity entity = MinecraftClient.getInstance().world.getEntityById(packet.getId());
-            Client.INSTANCE.MODULE_MANAGER.getModule(EntityGlow.class).onEntitySpawn(entity);
+            Client.INSTANCE.MODULE_MANAGER.getModule(EntityESP.class).onEntitySpawn(entity);
         }
 
     }
@@ -32,9 +31,9 @@ public class ClientPlayerNetworkHandlerMixin {
     @Inject(at = @At("TAIL"), method = "onEntityTrackerUpdate", cancellable = true)
     void onEntityStatusEffect(EntityTrackerUpdateS2CPacket packet, CallbackInfo ci) {
 
-        if(Client.INSTANCE.MODULE_MANAGER.getModule(EntityGlow.class).isEnabled()) {
+        if(Client.INSTANCE.MODULE_MANAGER.getModule(EntityESP.class).isEnabled()) {
             Entity entity = MinecraftClient.getInstance().world.getEntityById(packet.id());
-            Client.INSTANCE.MODULE_MANAGER.getModule(EntityGlow.class).onEntityMetadataUpdate(entity);
+            Client.INSTANCE.MODULE_MANAGER.getModule(EntityESP.class).onEntityMetadataUpdate(entity);
         }
 
     }

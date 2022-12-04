@@ -1,7 +1,7 @@
 package com.waterbased.client.mixin;
 
 import com.waterbased.client.Client;
-import com.waterbased.client.modules.EntityGlow;
+import com.waterbased.client.modules.EntityESP;
 import com.waterbased.client.modules.ModuleManager;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
@@ -17,8 +17,8 @@ public class ClientWorldMixin {
     // Glow Entities
     @Inject(at = @At("HEAD"), method = "addEntity")
     public void addEntity(int id, Entity entity, CallbackInfo ci) {
-        if (ModuleManager.INSTANCE.getModule(EntityGlow.class) != null &&
-                ModuleManager.INSTANCE.getModule(EntityGlow.class).isEnabled()) {
+        if (ModuleManager.INSTANCE.getModule(EntityESP.class) != null &&
+                ModuleManager.INSTANCE.getModule(EntityESP.class).isEnabled()) {
             Client.LOGGER.info("EntityGlow: adding entity");
             if (entity instanceof LivingEntity) {
                 if (entity != MinecraftClient.getInstance().player) {
