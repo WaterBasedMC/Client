@@ -1,7 +1,7 @@
 package com.waterbased.client.mixin;
 
 import com.waterbased.client.Client;
-import com.waterbased.client.modules.NoSlowDown;
+import com.waterbased.client.modules.movement.NoSlowDown;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import org.spongepowered.asm.mixin.Mixin;

@@ -1,7 +1,7 @@
 package com.waterbased.client.mixin;
 
-import com.waterbased.client.modules.AntiCactus;
 import com.waterbased.client.modules.ModuleManager;
+import com.waterbased.client.modules.utilities.AntiCactus;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CactusBlock;

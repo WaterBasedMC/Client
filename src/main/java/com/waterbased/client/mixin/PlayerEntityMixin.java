@@ -1,7 +1,7 @@
 package com.waterbased.client.mixin;
 
 import com.waterbased.client.modules.ModuleManager;
-import com.waterbased.client.modules.NoSlowDown;
+import com.waterbased.client.modules.movement.NoSlowDown;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;

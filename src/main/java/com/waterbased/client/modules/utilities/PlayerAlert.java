@@ -1,6 +1,7 @@
-package com.waterbased.client.modules;
+package com.waterbased.client.modules.utilities;
 
 import com.waterbased.client.Client;
+import com.waterbased.client.modules.Module;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.OtherClientPlayerEntity;

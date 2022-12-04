@@ -1,6 +1,7 @@
-package com.waterbased.client.modules;
+package com.waterbased.client.modules.movement;
 
 import com.waterbased.client.Client;
+import com.waterbased.client.modules.Module;
 import net.minecraft.client.util.InputUtil;
 
 public class NoSlowDown extends Module {

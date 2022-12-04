@@ -1,8 +1,8 @@
 package com.waterbased.client.mixin;
 
 import com.waterbased.client.Client;
-import com.waterbased.client.modules.EntityESP;
 import com.waterbased.client.modules.ModuleManager;
+import com.waterbased.client.modules.render.EntityESP;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;

@@ -1,8 +1,9 @@
-package com.waterbased.client.modules;
+package com.waterbased.client.modules.movement;
 
 import com.mojang.authlib.GameProfile;
 import com.waterbased.client.Client;
 import com.waterbased.client.mixin.PlayerListEntryInvoker;
+import com.waterbased.client.modules.Module;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.OtherClientPlayerEntity;

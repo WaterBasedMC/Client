@@ -1,7 +1,15 @@
 package com.waterbased.client;
 
 import com.waterbased.client.modules.Module;
-import com.waterbased.client.modules.*;
+import com.waterbased.client.modules.ModuleManager;
+import com.waterbased.client.modules.movement.CreativeFly;
+import com.waterbased.client.modules.movement.NoSlowDown;
+import com.waterbased.client.modules.movement.SpectatorCam;
+import com.waterbased.client.modules.render.EntityESP;
+import com.waterbased.client.modules.render.NightVision;
+import com.waterbased.client.modules.utilities.AntiCactus;
+import com.waterbased.client.modules.utilities.NoFall;
+import com.waterbased.client.modules.utilities.PlayerAlert;
 import com.waterbased.client.ui.HUDInfo;
 import com.waterbased.client.ui.SelectionGUI;
 import com.waterbased.client.util.ChatManager;

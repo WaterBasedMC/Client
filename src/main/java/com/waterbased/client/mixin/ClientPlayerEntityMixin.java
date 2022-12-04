@@ -2,7 +2,7 @@ package com.waterbased.client.mixin;
 
 
 import com.waterbased.client.modules.ModuleManager;
-import com.waterbased.client.modules.NoSlowDown;
+import com.waterbased.client.modules.movement.NoSlowDown;
 import net.minecraft.client.network.ClientPlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
