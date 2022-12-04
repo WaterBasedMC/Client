@@ -23,10 +23,10 @@ public class ModuleManager {
         return null;
     }
 
-    public Module getModule(Class<? extends Module> clazz) {
+    public <T extends Module> T getModule(Class<T> clazz) {
         for (Module module : this.modules) {
             if (module.getClass().equals(clazz)) {
-                return module;
+                return (T) module;
             }
         }
         return null;
