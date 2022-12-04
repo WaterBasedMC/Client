@@ -4,6 +4,7 @@ import com.waterbased.client.modules.Module;
 import com.waterbased.client.modules.*;
 import com.waterbased.client.ui.HUDInfo;
 import com.waterbased.client.ui.SelectionGUI;
+import com.waterbased.client.util.ChatManager;
 import io.github.cottonmc.cotton.gui.client.CottonClientScreen;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.MinecraftClient;
@@ -23,6 +24,7 @@ public class Client implements ModInitializer {
     public static final HUDInfo HUD = new HUDInfo();
     public static boolean LOG_TO_CHAT = true;
     public final ModuleManager MODULE_MANAGER = ModuleManager.INSTANCE;
+    public final ChatManager chatManager = new ChatManager();
 
     @Override
     public void onInitialize() {

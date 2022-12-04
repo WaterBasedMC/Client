@@ -63,11 +63,12 @@ public abstract class Module {
 
     private void callActivationCallbacks() {
         Client.HUD.onModuleStateChange(this);
-        Client.LOGGER.info(this.name + " is now " + (this.enabled ? "enabled" : "disabled"));
         if (this.enabled) {
             this.onEnable();
+            Client.INSTANCE.chatManager.send("§aEnabled §7" + this.name);
         } else {
             this.onDisable();
+            Client.INSTANCE.chatManager.send("§cDisabled §7" + this.name);
         }
     }
 
