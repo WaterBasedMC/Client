@@ -5,6 +5,7 @@
   "client": [
     "ClientMixin",
     "ClientWorldMixin",
+    "ClientPlayerNetworkHandlerMixin",
     "FreeCamMixin",
     "KeyboardMixin",
     "PlayerListEntryInvoker"
