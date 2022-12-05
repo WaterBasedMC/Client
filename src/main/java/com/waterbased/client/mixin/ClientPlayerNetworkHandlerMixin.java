@@ -27,25 +27,12 @@ public class ClientPlayerNetworkHandlerMixin {
 
     @Inject(at = @At("TAIL"), method = "onEntitySpawn")
     void onEntitySpawn(EntitySpawnS2CPacket packet, CallbackInfo ci) {
-
-        /* MODULE: EntityESP */
-        {
-            if (Client.INSTANCE.MODULE_MANAGER.getModule(EntityESP.class).isEnabled()) {
-                Entity entity = MinecraftClient.getInstance().world.getEntityById(packet.getId());
-                Client.INSTANCE.MODULE_MANAGER.getModule(EntityESP.class).onEntitySpawn(entity);
-            }
-        }
-
+        //Triggered when entity (!player) spawnes in world / comes into view
     }
 
     @Inject(at = @At("TAIL"), method = "onEntityTrackerUpdate")
-    void onEntityStatusEffect(EntityTrackerUpdateS2CPacket packet, CallbackInfo ci) {
-
-        if(Client.INSTANCE.MODULE_MANAGER.getModule(EntityESP.class).isEnabled()) {
-            Entity entity = MinecraftClient.getInstance().world.getEntityById(packet.id());
-            Client.INSTANCE.MODULE_MANAGER.getModule(EntityESP.class).onEntityMetadataUpdate(entity);
-        }
-
+    void onEntityTrackerUpdate(EntityTrackerUpdateS2CPacket packet, CallbackInfo ci) {
+        //Triggered when entity metadata changes
     }
 
     @Inject(at = @At("TAIL"), method = "onGameJoin")
