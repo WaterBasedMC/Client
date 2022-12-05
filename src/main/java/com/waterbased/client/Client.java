@@ -10,12 +10,11 @@ import com.waterbased.client.modules.render.ClearSight;
 import com.waterbased.client.modules.render.EntityESP;
 import com.waterbased.client.modules.render.NightVision;
 import com.waterbased.client.modules.utilities.AntiCactus;
-import com.waterbased.client.modules.utilities.NoFall;
+import com.waterbased.client.modules.player.NoFall;
 import com.waterbased.client.modules.utilities.PlayerAlert;
 import com.waterbased.client.ui.HUDInfo;
-import com.waterbased.client.ui.SelectionGUI;
+import com.waterbased.client.ui.clickgui.ClickGUI;
 import com.waterbased.client.util.ChatManager;
-import io.github.cottonmc.cotton.gui.client.CottonClientScreen;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -37,6 +36,8 @@ public class Client implements ModInitializer {
     public static boolean LOG_TO_CHAT = true;
     public final ModuleManager MODULE_MANAGER = ModuleManager.INSTANCE;
     public final ChatManager chatManager = new ChatManager();
+
+    public final ClickGUI clickGUI = new ClickGUI();
 
     @Override
     public void onInitialize() {
@@ -126,7 +127,7 @@ public class Client implements ModInitializer {
                     .filter(module -> module.getKey() != null && module.getKey() == key)
                     .forEach(Module::onKey);
             if (key == 96) { // ^
-                MinecraftClient.getInstance().setScreen(new CottonClientScreen(new SelectionGUI()));
+                MinecraftClient.getInstance().setScreen(clickGUI);
             } else if (key == InputUtil.GLFW_KEY_KP_1) {
                 LOG_TO_CHAT = !LOG_TO_CHAT;
                 chatManager.send("§aLogger to Chat is now " + (LOG_TO_CHAT ? "§a" : "§c") + (LOG_TO_CHAT ? "enabled" : "disabled") + "§a.");

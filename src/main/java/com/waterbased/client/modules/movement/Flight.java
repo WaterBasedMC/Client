@@ -2,7 +2,7 @@ package com.waterbased.client.modules.movement;
 
 import com.waterbased.client.Client;
 import com.waterbased.client.modules.Module;
-import com.waterbased.client.modules.utilities.NoFall;
+import com.waterbased.client.modules.player.NoFall;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.util.InputUtil;

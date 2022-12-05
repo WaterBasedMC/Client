@@ -1,4 +1,4 @@
-package com.waterbased.client.modules.utilities;
+package com.waterbased.client.modules.player;
 
 import com.waterbased.client.modules.Module;
 import net.minecraft.client.MinecraftClient;
