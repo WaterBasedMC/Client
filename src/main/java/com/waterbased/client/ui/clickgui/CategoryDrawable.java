@@ -127,7 +127,7 @@ public abstract class CategoryDrawable implements ClickGUIDrawable {
 
         }
         if(hoveredEntry != null) {
-            List<OrderedText> lines = textRenderer.wrapLines(StringVisitable.plain(hoveredEntry.getDescription() + "\nBinding: " + hoveredEntry.getBinding()), 200);
+            List<OrderedText> lines = textRenderer.wrapLines(StringVisitable.plain("§7" + hoveredEntry.getDescription() + "\n§bBinding: " + hoveredEntry.getBinding()), 200);
             gui.renderOrderedTooltip(matrices, lines, mouseX, mouseY);
         }
     }
