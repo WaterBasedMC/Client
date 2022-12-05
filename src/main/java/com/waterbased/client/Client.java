@@ -2,6 +2,7 @@ package com.waterbased.client;
 
 import com.waterbased.client.modules.Module;
 import com.waterbased.client.modules.ModuleManager;
+import com.waterbased.client.modules.movement.BouncySlime;
 import com.waterbased.client.modules.movement.Flight;
 import com.waterbased.client.modules.movement.NoSlowDown;
 import com.waterbased.client.modules.movement.SpectatorCam;
@@ -52,6 +53,7 @@ public class Client implements ModInitializer {
         MODULE_MANAGER.addModule(new NightVision());
         MODULE_MANAGER.addModule(new PlayerAlert());
         MODULE_MANAGER.addModule(new ClearSight());
+        MODULE_MANAGER.addModule(new BouncySlime());
         for (Module module : MODULE_MANAGER.getModules()) {
             LOGGER.info(module.getName() + " - " + module.getDescription());
         }
