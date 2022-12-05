@@ -18,8 +18,8 @@ import io.github.cottonmc.cotton.gui.client.CottonClientScreen;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.Text;
 
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -64,12 +64,11 @@ public class Client implements ModInitializer {
             @Override
             public void publish(LogRecord record) {
                 if (!LOG_TO_CHAT) return;
-                // writes to mc chat (green = info, yellow = warning, red = severe)
-                if (MinecraftClient.getInstance().inGameHud != null) {
-                    String color = record.getLevel() == Level.INFO ? "§a" : record.getLevel() == Level.WARNING ? "§eWarning: " : "§cError: ";
-                    MinecraftClient.getInstance().inGameHud.getChatHud()
-                            .addMessage(Text.of(color + record.getMessage()));
-                }
+                if (MinecraftClient.getInstance().inGameHud == null) return;
+                String color = record.getLevel() == Level.INFO ? "§a" : record.getLevel() == Level.WARNING ? "§eWarning: " : "§cError: ";
+
+                String className = record.getSourceClassName().substring(record.getSourceClassName().lastIndexOf(".") + 1);
+                chatManager.send(color + record.getMessage(), "[LOGGER - "+className+"]: ");
             }
 
             @Override
@@ -126,6 +125,9 @@ public class Client implements ModInitializer {
                     .forEach(Module::onKey);
             if (key == 96) { // ^
                 MinecraftClient.getInstance().setScreen(new CottonClientScreen(new SelectionGUI()));
+            } else if (key == InputUtil.GLFW_KEY_KP_1) {
+                LOG_TO_CHAT = !LOG_TO_CHAT;
+                chatManager.send("§aLogger to Chat is now " + (LOG_TO_CHAT ? "§a" : "§c") + (LOG_TO_CHAT ? "enabled" : "disabled") + "§a.");
             }
         }
     }

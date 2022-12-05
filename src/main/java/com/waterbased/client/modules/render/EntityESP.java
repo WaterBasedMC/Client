@@ -2,31 +2,22 @@ package com.waterbased.client.modules.render;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.waterbased.client.Client;
 import com.waterbased.client.modules.Module;
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
+import com.waterbased.client.util.UtilEntity;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.render.*;
+import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.debug.DebugRenderer;
-import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Matrix4f;
 
 import java.util.HashSet;
-import java.util.List;
 
 public class EntityESP extends Module {
 
-    private HashSet<Integer> glowingEntities = new HashSet<>();
+    private final HashSet<Integer> glowingEntities = new HashSet<>();
 
     public EntityESP() {
         super("EntityESP", "Make all living entities glow", InputUtil.GLFW_KEY_MINUS);
@@ -43,7 +34,7 @@ public class EntityESP extends Module {
                 if (le.isGlowing()) {
                     this.glowingEntities.add(le.getId());
                 }
-                this.setEntityGlow(le, true);
+                UtilEntity.setEntityGlow(le, true);
             }
         }
     }
@@ -56,7 +47,7 @@ public class EntityESP extends Module {
         for (Entity entity : MinecraftClient.getInstance().world.getEntities()) {
             if (entity instanceof LivingEntity le) {
                 if (!this.glowingEntities.contains(le.getId())) {
-                    this.setEntityGlow(le, false);
+                    UtilEntity.setEntityGlow(le, false);
                 }
             }
         }
@@ -86,7 +77,7 @@ public class EntityESP extends Module {
             if (entity.isGlowing()) {
                 this.glowingEntities.add(le.getId());
             }
-            this.setEntityGlow(le, true);
+            UtilEntity.setEntityGlow(le, true);
         }
     }
 
@@ -98,27 +89,7 @@ public class EntityESP extends Module {
             } else {
                 this.glowingEntities.remove(le.getId());
             }
-            this.setEntityGlow(le, true);
-        }
-    }
-
-    public void setEntityGlow(LivingEntity entity, boolean glow) {
-        if (entity.getDataTracker().getAllEntries() == null)
-            return;
-
-        for (DataTracker.Entry<?> entry : entity.getDataTracker().getAllEntries()) {
-            if (entry.getData().getId() == 0) {
-                DataTracker.Entry<Byte> entry1 = (DataTracker.Entry<Byte>) entry;
-                byte value = (Byte) entry.get();
-
-                if (glow) {
-                    entry1.set((byte) (value | 0x40));
-                } else {
-                    entry1.set((byte) (value & (~0x40)));
-                }
-
-                entity.getDataTracker().writeUpdatedEntries(List.of(entry1));
-            }
+            UtilEntity.setEntityGlow(le, true);
         }
     }
 
