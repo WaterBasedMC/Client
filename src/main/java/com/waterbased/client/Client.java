@@ -13,6 +13,7 @@ import com.waterbased.client.modules.utilities.NoFall;
 import com.waterbased.client.modules.utilities.PlayerAlert;
 import com.waterbased.client.ui.HUDInfo;
 import com.waterbased.client.ui.SelectionGUI;
+import com.waterbased.client.ui.clickgui.ClickGUI;
 import com.waterbased.client.util.ChatManager;
 import io.github.cottonmc.cotton.gui.client.CottonClientScreen;
 import net.fabricmc.api.ModInitializer;
@@ -36,6 +37,8 @@ public class Client implements ModInitializer {
     public static boolean LOG_TO_CHAT = true;
     public final ModuleManager MODULE_MANAGER = ModuleManager.INSTANCE;
     public final ChatManager chatManager = new ChatManager();
+
+    public final ClickGUI clickGUI = new ClickGUI();
 
     @Override
     public void onInitialize() {
@@ -125,7 +128,7 @@ public class Client implements ModInitializer {
                     .filter(module -> module.getKey() != null && module.getKey() == key)
                     .forEach(Module::onKey);
             if (key == 96) { // ^
-                MinecraftClient.getInstance().setScreen(new CottonClientScreen(new SelectionGUI()));
+                MinecraftClient.getInstance().setScreen(clickGUI);
             }
         }
     }
