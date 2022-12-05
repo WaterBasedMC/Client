@@ -16,7 +16,11 @@ public class UtilUI {
     public static @Nullable MutableText displayItemNames = null;
 
     public static void displayItemNameText(String text) {
-        displayItemNameText(text, TextColor.fromFormatting(Formatting.WHITE), false, false, false, false, false);
+        displayItemNameText(text, TextColor.fromFormatting(Formatting.WHITE));
+    }
+
+    public static void displayItemNameText(String text, TextColor color) {
+        displayItemNameText(text, color, false, false, false, false, false);
     }
 
     public static void displayItemNameText(String text, TextColor color, boolean bold, boolean italic, boolean underlined, boolean strikethrough, boolean obfuscated) {

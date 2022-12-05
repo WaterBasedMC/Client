@@ -14,7 +14,6 @@ import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.network.packet.s2c.play.EntityTrackerUpdateS2CPacket;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
 import net.minecraft.network.packet.s2c.play.PlayerSpawnS2CPacket;
-import net.minecraft.text.Text;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -62,13 +61,7 @@ public class ClientPlayerNetworkHandlerMixin {
             if (world != null && Client.INSTANCE.MODULE_MANAGER.getModule(PlayerAlert.class).isEnabled()) {
                 OtherClientPlayerEntity otherPlayer = (OtherClientPlayerEntity) world.getEntityById(packet.getId());
                 if (otherPlayer != null) {
-                    Text name = otherPlayer.getDisplayName();
-                    assert MinecraftClient.getInstance().player != null;
-                    float distanceToPlayer = MinecraftClient.getInstance().player.distanceTo(otherPlayer);
-                    distanceToPlayer = Math.round(distanceToPlayer * 100.0f) / 100.0f;
-                    MinecraftClient.getInstance().inGameHud.getChatHud()
-                            .addMessage(Text.of(String.format(PlayerAlert.MESSAGE_TEMPLATE.getString(), otherPlayer.getDisplayName()
-                                    .getString(), distanceToPlayer)));
+                    Client.INSTANCE.MODULE_MANAGER.getModule(PlayerAlert.class).onNewPlayer(otherPlayer);
                 } else {
                     Client.LOGGER.warning("PlayerSpawnS2CPacket contained invalid entity ID " + packet.getId());
                 }
