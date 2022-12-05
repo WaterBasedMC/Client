@@ -4,7 +4,14 @@ import com.waterbased.client.modules.Module;
 
 public class BouncySlime extends Module {
 
-    public static double BOUNCINESS = 1.2d;
+    public void setBounciness(double newBounciness) {
+        if (newBounciness < 0.0d) {
+            throw new IllegalArgumentException("Bounciness cannot be less than 0.0");
+        }
+        this.bounciness = newBounciness;
+    }
+
+    private double bounciness = 1.4d;
 
     public BouncySlime() {
         super("BouncySlime", "Makes Slime Blocks more bouncy");
@@ -12,12 +19,12 @@ public class BouncySlime extends Module {
 
     @Override
     public void onEnable() {
-
     }
 
     public double getBounciness() {
         // old value: 1.0
-        return BOUNCINESS;
+        // used it /mixin/SlimeBlockMixin.java
+        return Math.max(0.0d, bounciness); // prevent crash on negative values
     }
 
     @Override
