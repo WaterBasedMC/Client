@@ -9,7 +9,7 @@ import net.minecraft.entity.effect.StatusEffects;
 
 public class NightVision extends Module {
     public NightVision() {
-        super("NightVision", "Allows you to see in the dark", InputUtil.GLFW_KEY_M);
+        super("NightVision", "Allows you to see in the dark", InputUtil.GLFW_KEY_COMMA);
     }
 
     @Override
