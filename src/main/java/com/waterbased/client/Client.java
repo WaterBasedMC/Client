@@ -2,15 +2,12 @@ package com.waterbased.client;
 
 import com.waterbased.client.modules.Module;
 import com.waterbased.client.modules.ModuleManager;
-import com.waterbased.client.modules.movement.BouncySlime;
-import com.waterbased.client.modules.movement.Flight;
-import com.waterbased.client.modules.movement.NoSlowDown;
-import com.waterbased.client.modules.movement.SpectatorCam;
+import com.waterbased.client.modules.movement.*;
+import com.waterbased.client.modules.player.NoFall;
 import com.waterbased.client.modules.render.ClearSight;
 import com.waterbased.client.modules.render.EntityESP;
 import com.waterbased.client.modules.render.NightVision;
 import com.waterbased.client.modules.utilities.AntiCactus;
-import com.waterbased.client.modules.player.NoFall;
 import com.waterbased.client.modules.utilities.PlayerAlert;
 import com.waterbased.client.ui.HUDInfo;
 import com.waterbased.client.ui.clickgui.ClickGUI;
@@ -55,6 +52,7 @@ public class Client implements ModInitializer {
         MODULE_MANAGER.addModule(new PlayerAlert());
         MODULE_MANAGER.addModule(new ClearSight());
         MODULE_MANAGER.addModule(new BouncySlime());
+        MODULE_MANAGER.addModule(new VehicleFlight());
         for (Module module : MODULE_MANAGER.getModules()) {
             LOGGER.info(module.getName() + " - " + module.getDescription());
         }

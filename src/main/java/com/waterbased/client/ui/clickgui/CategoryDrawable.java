@@ -10,7 +10,7 @@ import net.minecraft.text.StringVisitable;
 import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class CategoryDrawable implements ClickGUIDrawable {
@@ -28,7 +28,7 @@ public abstract class CategoryDrawable implements ClickGUIDrawable {
 
     private boolean isHovered = false;
 
-    private HashSet<CategoryModuleEntry> entries = new HashSet<>();
+    private List<CategoryModuleEntry> entries = new ArrayList<>();
 
     protected CategoryDrawable(String name, int x, int y, int width, int height) {
         this.name = name;

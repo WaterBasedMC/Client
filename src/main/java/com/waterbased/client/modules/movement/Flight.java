@@ -9,6 +9,8 @@ import net.minecraft.client.util.InputUtil;
 
 public class Flight extends Module {
 
+    private float speed = 1f;
+    private float speedMultiplier = 2f;
     private int ticks = 0;
     private boolean oldNoFallState = false;
 
@@ -19,15 +21,18 @@ public class Flight extends Module {
     @Override
     public void onEnable() {
         this.ticks = 0;
-        NoFall nf = (NoFall) Client.INSTANCE.MODULE_MANAGER.getModule(NoFall.class);
+        NoFall nf = Client.INSTANCE.MODULE_MANAGER.getModule(NoFall.class);
         this.oldNoFallState = nf.isEnabled();
         nf.forceState(true);
     }
 
     @Override
     public void onDisable() {
-        NoFall nf = (NoFall) Client.INSTANCE.MODULE_MANAGER.getModule(NoFall.class);
+        NoFall nf = Client.INSTANCE.MODULE_MANAGER.getModule(NoFall.class);
         nf.forceState(this.oldNoFallState);
+        ClientPlayerEntity player = MinecraftClient.getInstance().player;
+        if (player == null) return;
+        player.airStrafingSpeed = 0.02f;
     }
 
     @Override
@@ -36,9 +41,9 @@ public class Flight extends Module {
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
         if (player == null) return;
         player.getAbilities().flying = false;
-        player.airStrafingSpeed = 1f;
+        player.airStrafingSpeed = speed;
         if (player.isSprinting()) {
-            player.airStrafingSpeed *= 2f;
+            player.airStrafingSpeed *= speedMultiplier;
         }
 
         player.setVelocity(0, 0, 0);
@@ -59,5 +64,21 @@ public class Flight extends Module {
         } else if (ticks % 80 == 1) {
             player.setVelocity(player.getVelocity().x, 0.07, player.getVelocity().z);
         }
+    }
+
+    public float getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(float speed) {
+        this.speed = speed;
+    }
+
+    public float getSpeedMultiplier() {
+        return speedMultiplier;
+    }
+
+    public void setSpeedMultiplier(float speedMultiplier) {
+        this.speedMultiplier = speedMultiplier;
     }
 }

@@ -1,9 +1,6 @@
 package com.waterbased.client.ui.clickgui.categories;
 
-import com.waterbased.client.modules.movement.BouncySlime;
-import com.waterbased.client.modules.movement.Flight;
-import com.waterbased.client.modules.movement.NoSlowDown;
-import com.waterbased.client.modules.movement.SpectatorCam;
+import com.waterbased.client.modules.movement.*;
 import com.waterbased.client.ui.clickgui.CategoryDrawable;
 
 public class CategoryMovement extends CategoryDrawable {
@@ -15,6 +12,7 @@ public class CategoryMovement extends CategoryDrawable {
         this.addEntry(new CategoryModuleEntry(Flight.class));
         this.addEntry(new CategoryModuleEntry(NoSlowDown.class));
         this.addEntry(new CategoryModuleEntry(SpectatorCam.class));
+        this.addEntry(new CategoryModuleEntry(VehicleFlight.class));
 
     }
 
