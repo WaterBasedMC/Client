@@ -49,6 +49,7 @@ public class PlayerAlert extends Module {
                 distanceToPlayer = Math.round(distanceToPlayer * 100.0f) / 100.0f;
                 messages.add(Text.of(String.format(MESSAGE_TEMPLATE, otherPlayer.getName()
                         .getString(), distanceToPlayer)));
+                nearbyPlayers.add((OtherClientPlayerEntity) otherPlayer);
             });
         } else {
             MinecraftClient.getInstance().inGameHud.getChatHud()
@@ -69,8 +70,10 @@ public class PlayerAlert extends Module {
         }
         if (!this.isEnabled()) return;
         if (this.messages.size() > 0) {
-            messages.forEach(message -> MinecraftClient.getInstance().inGameHud.getChatHud()
-                    .addMessage(message));
+            messages.forEach(message -> Client.INSTANCE.chatManager.send(
+                    message.getString(),
+                    "[§cPlayerAlert§r] "
+            ));
             messages.clear();
         }
         if (tickCounter == 0) {
@@ -80,7 +83,10 @@ public class PlayerAlert extends Module {
 
     private void printNearestPlayer() {
         PlayerEntity player = MinecraftClient.getInstance().player;
-        if (player == null) return;
+        if (player == null) {
+            Client.LOGGER.warning("Player is null");
+            return;
+        }
         cleanupNearbyPlayer();
         OtherClientPlayerEntity nearestPlayer = getNearbyPlayer();
         if (nearestPlayer != null) {
