@@ -1,7 +1,9 @@
 package com.waterbased.client.ui.clickgui;
 
 import com.waterbased.client.ui.clickgui.categories.CategoryMovement;
+import com.waterbased.client.ui.clickgui.categories.CategoryPlayer;
 import com.waterbased.client.ui.clickgui.categories.CategoryRender;
+import com.waterbased.client.ui.clickgui.categories.CategoryUtilities;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.math.MatrixStack;
@@ -18,6 +20,8 @@ public class ClickGUI extends Screen {
         super(Text.of("WaterBased ClickGUI"));
         drawables.add(new CategoryRender(100, 100));
         drawables.add(new CategoryMovement(200, 100));
+        drawables.add(new CategoryPlayer(300, 100));
+        drawables.add(new CategoryUtilities(400, 100));
     }
 
     @Override

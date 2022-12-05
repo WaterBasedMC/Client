@@ -10,9 +10,9 @@ public class CategoryRender extends CategoryDrawable {
     public CategoryRender(int x, int y) {
         super("Render", x, y);
 
-        this.addEntry(new CategoryEntry(ClearSight.class));
-        this.addEntry(new CategoryEntry(EntityESP.class));
-        this.addEntry(new CategoryEntry(NightVision.class));
+        this.addEntry(new CategoryModuleEntry(ClearSight.class));
+        this.addEntry(new CategoryModuleEntry(EntityESP.class));
+        this.addEntry(new CategoryModuleEntry(NightVision.class));
 
     }
 

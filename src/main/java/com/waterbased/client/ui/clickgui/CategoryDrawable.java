@@ -1,16 +1,13 @@
 package com.waterbased.client.ui.clickgui;
 
-import com.waterbased.client.ui.clickgui.categories.CategoryEntry;
+import com.waterbased.client.ui.clickgui.categories.CategoryModuleEntry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.OrderedText;
 import net.minecraft.text.StringVisitable;
-import net.minecraft.text.Style;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.HashSet;
@@ -31,7 +28,7 @@ public abstract class CategoryDrawable implements ClickGUIDrawable {
 
     private boolean isHovered = false;
 
-    private HashSet<CategoryEntry> entries = new HashSet<>();
+    private HashSet<CategoryModuleEntry> entries = new HashSet<>();
 
     protected CategoryDrawable(String name, int x, int y, int width, int height) {
         this.name = name;
@@ -50,27 +47,27 @@ public abstract class CategoryDrawable implements ClickGUIDrawable {
     @Override
     public void render(MatrixStack matrices, TextRenderer textRenderer, int mouseX, int mouseY, ClickGUI gui) {
 
-        if(this.width < textRenderer.getWidth(this.name) + ENTRY_PADDING * 2) {
-            this.width = textRenderer.getWidth(this.name) + ENTRY_PADDING * 2;
+        if (this.width < textRenderer.getWidth(this.name) + ENTRY_PADDING * 2 + 10) {
+            this.width = textRenderer.getWidth(this.name) + ENTRY_PADDING * 2 + 10;
         }
-        if(this.height < textRenderer.getWrappedLinesHeight(this.name, this.width) + 20) {
+        if (this.height < textRenderer.getWrappedLinesHeight(this.name, this.width) + 20) {
             this.height = textRenderer.getWrappedLinesHeight(this.name, this.width) + 20;
         }
 
-        if(mouseX >= this.x && mouseX <= this.x + this.width && mouseY >= this.y && mouseY <= this.y + HEADER_HEIGHT) {
+        if (mouseX >= this.x && mouseX <= this.x + this.width && mouseY >= this.y && mouseY <= this.y + HEADER_HEIGHT) {
             this.isHovered = true;
         } else {
             this.isHovered = false;
         }
 
         boolean changed = false;
-        for(CategoryEntry entry : this.entries) {
-            if(this.width < textRenderer.getWidth(entry.getName())) {
+        for (CategoryModuleEntry entry : this.entries) {
+            if (this.width < textRenderer.getWidth(entry.getName())) {
                 this.width = textRenderer.getWidth(entry.getName());
                 changed = true;
             }
         }
-        if(changed) {
+        if (changed) {
             this.width += ENTRY_PADDING * 2;
         }
 
@@ -79,8 +76,8 @@ public abstract class CategoryDrawable implements ClickGUIDrawable {
         drawEntries(matrices, textRenderer, mouseX, mouseY, gui);
 
         //Check if mouse is pressed
-        if(GLFW.glfwGetMouseButton(MinecraftClient.getInstance().getWindow().getHandle(), GLFW.GLFW_MOUSE_BUTTON_LEFT) == GLFW.GLFW_PRESS) {
-            if(this.isHovered) {
+        if (GLFW.glfwGetMouseButton(MinecraftClient.getInstance().getWindow().getHandle(), GLFW.GLFW_MOUSE_BUTTON_LEFT) == GLFW.GLFW_PRESS) {
+            if (this.isHovered) {
                 this.x += mouseX - this.lastMouseX;
                 this.y += mouseY - this.lastMouseY;
             }
@@ -100,7 +97,8 @@ public abstract class CategoryDrawable implements ClickGUIDrawable {
 
     private void drawEntries(MatrixStack matrices, TextRenderer textRenderer, int mouseX, int mouseY, ClickGUI gui) {
         int listHeight = 0;
-        for(CategoryEntry entry : this.entries) {
+        CategoryModuleEntry hoveredEntry = null;
+        for (CategoryModuleEntry entry : this.entries) {
             int x = this.x;
             int y = this.y + HEADER_HEIGHT + listHeight;
             int width = this.width;
@@ -112,19 +110,33 @@ public abstract class CategoryDrawable implements ClickGUIDrawable {
             DrawableHelper.fill(matrices, x, y + height, x + width, y + height - 1, this.color);
             textRenderer.draw(matrices, entry.getName(), x + this.width / 2 - textRenderer.getWidth(entry.getName()) / 2, y + ENTRY_PADDING * 2, 0xFFFFFFFF);
 
-            if(mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height) {
-                List<OrderedText> lines = textRenderer.wrapLines(StringVisitable.plain(entry.getDescription()), 200);
-                gui.renderTooltip(matrices, lines.stream().map(l -> (Text)l).toList(), mouseX, mouseY);
+            if (mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height) {
+                hoveredEntry = entry;
+
+                //Toggle Module
+                if (GLFW.glfwGetMouseButton(MinecraftClient.getInstance().getWindow().getHandle(), GLFW.GLFW_MOUSE_BUTTON_LEFT) == GLFW.GLFW_PRESS) {
+                    if (!entry.wasToggled()) {
+                        entry.toggle();
+                        entry.setWasToggled(true);
+                    }
+                } else {
+                    entry.setWasToggled(false);
+                }
+
             }
 
         }
+        if(hoveredEntry != null) {
+            List<OrderedText> lines = textRenderer.wrapLines(StringVisitable.plain(hoveredEntry.getDescription() + "\nBinding: " + hoveredEntry.getBinding()), 200);
+            gui.renderOrderedTooltip(matrices, lines, mouseX, mouseY);
+        }
     }
 
-    protected void addEntry(CategoryEntry entry) {
+    protected void addEntry(CategoryModuleEntry entry) {
         this.entries.add(entry);
     }
 
-    protected void removeEntry(CategoryEntry entry) {
+    protected void removeEntry(CategoryModuleEntry entry) {
         this.entries.remove(entry);
     }
 

@@ -10,9 +10,9 @@ public class CategoryMovement extends CategoryDrawable {
     public CategoryMovement(int x, int y) {
         super("Movement", x, y);
 
-        this.addEntry(new CategoryEntry(Flight.class));
-        this.addEntry(new CategoryEntry(NoSlowDown.class));
-        this.addEntry(new CategoryEntry(SpectatorCam.class));
+        this.addEntry(new CategoryModuleEntry(Flight.class));
+        this.addEntry(new CategoryModuleEntry(NoSlowDown.class));
+        this.addEntry(new CategoryModuleEntry(SpectatorCam.class));
 
     }
 
