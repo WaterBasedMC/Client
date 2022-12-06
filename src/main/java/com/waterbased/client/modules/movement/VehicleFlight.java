@@ -1,38 +1,28 @@
 package com.waterbased.client.modules.movement;
 
+import com.waterbased.client.Client;
 import com.waterbased.client.modules.Module;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.vehicle.BoatEntity;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class VehicleFlight extends Module {
     private double speed = 1f;
-    private double forwardSpeedMultiplier = 0.64f;
-    public static final Map<Class<? extends Entity>, Double> ANTI_FALL_VALUES = new HashMap<>(
-            Map.of(
-                    BoatEntity.class, 0.04d,
-                    AbstractHorseEntity.class, 0.0d
-            )
-    );
+    private double forwardSpeedMultiplier = 0.60f;
+
+    private int descendKey = InputUtil.GLFW_KEY_LEFT_ALT;
+
     public VehicleFlight() {
         super("VehicleFlight", "Allows you to fly in vehicles");
     }
 
     @Override
-    public void onEnable() {
-
-
-    }
+    public void onEnable() {}
 
     @Override
-    public void onDisable() {
-
-    }
+    public void onDisable() {}
 
     @Override
     public void onTick() {
@@ -45,35 +35,38 @@ public class VehicleFlight extends Module {
         double ySpeed = vehicle.getVelocity().y;
 
         // Flight
-        if (MinecraftClient.getInstance().options.sprintKey.isPressed()) {
+        if (this.isPressingDescendKey()) {
             ySpeed = -speed;
         } else if (player.input.jumping) {
             ySpeed = speed;
         }
 
-        vehicle.setVelocity(vehicle.getVelocity().x, ySpeed, vehicle.getVelocity().z);
-        // if not on grond, move upwards to prevent falling
-        if (!vehicle.isOnGround()) {
-            double antiFallValue = 0.03;
-            for (Map.Entry<Class<? extends Entity>, Double> entry : ANTI_FALL_VALUES.entrySet()) {
-                if (entry.getKey().isInstance(vehicle)) {
-                    antiFallValue = entry.getValue();
-                    break;
-                }
-            }
-            vehicle.addVelocity(0, antiFallValue, 0);
+        if (!vehicle.isOnGround() && vehicle instanceof BoatEntity) {
+            // boats are constantly falling with 0.04
+            vehicle.addVelocity(0, 0.04, 0);
         }
 
         // forward speed
         double direction = Math.toRadians(vehicle.getYaw());
         double forwardSpeed = speed * forwardSpeedMultiplier;
-        double xSpeed = -Math.sin(direction) * forwardSpeed;
-        double zSpeed = Math.cos(direction) * forwardSpeed;
-        if (player.input.pressingForward) {
-            vehicle.setVelocity(xSpeed, vehicle.getVelocity().y, zSpeed);
-        } else if (player.input.pressingBack) {
-            vehicle.setVelocity(-xSpeed, vehicle.getVelocity().y, -zSpeed);
+        double zSpeed = 0;
+        double xSpeed = 0;
+        if (player.input.pressingBack) {
+            zSpeed *= -1;
+            xSpeed *= -1;
+        } else if (player.input.pressingForward) {
+            xSpeed = -Math.sin(direction) * forwardSpeed;
+            zSpeed = Math.cos(direction) * forwardSpeed;
         }
+
+        vehicle.setVelocity(xSpeed, ySpeed, zSpeed);
+
+        //  vehicle.getVelocity().lengthSquared() with 2 decimals
+        Client.LOGGER.info("Speed: " + Math.round(vehicle.getVelocity().lengthSquared() * 100.0) / 100.0);
+    }
+
+    private boolean isPressingDescendKey() {
+        return InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), descendKey);
     }
 
     public double getSpeed() {
@@ -90,8 +83,17 @@ public class VehicleFlight extends Module {
     }
 
     public void setForwardSpeedMultiplier(float forwardSpeedMultiplier) {
-        if (forwardSpeedMultiplier < 0) throw new IllegalArgumentException("Forward speed multiplier cannot be negative");
+        if (forwardSpeedMultiplier < 0) {
+            throw new IllegalArgumentException("Forward speed multiplier cannot be negative");
+        }
         this.forwardSpeedMultiplier = forwardSpeedMultiplier;
     }
 
+    public int getDescendKey() {
+        return descendKey;
+    }
+
+    public void setDescendKey(int descendKey) {
+        this.descendKey = descendKey;
+    }
 }
