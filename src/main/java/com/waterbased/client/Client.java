@@ -14,9 +14,12 @@ import com.waterbased.client.ui.clickgui.ClickGUI;
 import com.waterbased.client.util.ChatManager;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -53,6 +56,7 @@ public class Client implements ModInitializer {
         MODULE_MANAGER.addModule(new ClearSight());
         MODULE_MANAGER.addModule(new BouncySlime());
         MODULE_MANAGER.addModule(new VehicleFlight());
+        MODULE_MANAGER.addModule(new Jesus());
         for (Module module : MODULE_MANAGER.getModules()) {
             LOGGER.info(module.getName() + " - " + module.getDescription());
         }
@@ -68,8 +72,9 @@ public class Client implements ModInitializer {
                 if (MinecraftClient.getInstance().inGameHud == null) return;
                 String color = record.getLevel() == Level.INFO ? "§a" : record.getLevel() == Level.WARNING ? "§eWarning: " : "§cError: ";
 
-                String className = record.getSourceClassName().substring(record.getSourceClassName().lastIndexOf(".") + 1);
-                chatManager.send(color + record.getMessage(), "[LOGGER - "+className+"]: ");
+                String className = record.getSourceClassName()
+                        .substring(record.getSourceClassName().lastIndexOf(".") + 1);
+                chatManager.send(color + record.getMessage(), "[LOGGER - " + className + "]: ");
             }
 
             @Override
@@ -110,11 +115,17 @@ public class Client implements ModInitializer {
     }
 
     public void onRenderInGameHUD(MatrixStack matrices, float tickDelta) {
-        MODULE_MANAGER.getModules().stream().filter(Module::isEnabled).forEach(m -> m.onRenderInGameHUD(matrices, tickDelta));
+        MODULE_MANAGER.getModules()
+                .stream()
+                .filter(Module::isEnabled)
+                .forEach(m -> m.onRenderInGameHUD(matrices, tickDelta));
     }
 
     public void onRenderLevel(MatrixStack matrices, VertexConsumerProvider.Immediate immediate, double cameraX, double cameraY, double cameraZ) {
-        MODULE_MANAGER.getModules().stream().filter(Module::isEnabled).forEach(m -> m.onRenderLevel(matrices, immediate, cameraX, cameraY, cameraZ));
+        MODULE_MANAGER.getModules()
+                .stream()
+                .filter(Module::isEnabled)
+                .forEach(m -> m.onRenderLevel(matrices, immediate, cameraX, cameraY, cameraZ));
     }
 
     public void onKey(int key) {
@@ -129,7 +140,28 @@ public class Client implements ModInitializer {
             } else if (key == InputUtil.GLFW_KEY_KP_1) {
                 LOG_TO_CHAT = !LOG_TO_CHAT;
                 chatManager.send("§aLogger to Chat is now " + (LOG_TO_CHAT ? "§a" : "§c") + (LOG_TO_CHAT ? "enabled" : "disabled") + "§a.");
+            } else if (key == InputUtil.GLFW_KEY_KP_2) {
+                chatManager.send("aua " + MinecraftClient.getInstance().player.world.getPlayers().get(0).getName());
+                // sends packet to damage player
+                damageMyself();
             }
         }
+    }
+
+    private void damageMyself() {
+        ClientPlayerEntity me = MinecraftClient.getInstance().player;
+        if (me == null) return;
+        ClientPlayNetworkHandler networkHandler = MinecraftClient.getInstance().getNetworkHandler();
+        if (networkHandler == null) return;
+        for (int i = 0; i < 4; i++) {
+            networkHandler.sendPacket(
+                    new PlayerMoveC2SPacket.PositionAndOnGround(
+                            me.getX(), me.getY() + (1.49*i), me.getZ(), false)
+            );
+        }
+        networkHandler.sendPacket(
+                new PlayerMoveC2SPacket.PositionAndOnGround(
+                        me.getX(), me.getY(), me.getZ(), false)
+        );
     }
 }

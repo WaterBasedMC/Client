@@ -22,6 +22,7 @@
     "CactusBlockMixin",
     "ClientPlayerEntityMixin",
     "EntityAttributeInstanceMixin",
+    "EntityMixin",
     "PlayerEntityMixin",
     "SlimeBlockMixin"
   ]

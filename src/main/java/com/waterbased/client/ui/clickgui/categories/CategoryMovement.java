@@ -13,6 +13,7 @@ public class CategoryMovement extends CategoryDrawable {
         this.addEntry(new CategoryModuleEntry(NoSlowDown.class));
         this.addEntry(new CategoryModuleEntry(SpectatorCam.class));
         this.addEntry(new CategoryModuleEntry(VehicleFlight.class));
+        this.addEntry(new CategoryModuleEntry(Jesus.class));
 
     }
 
