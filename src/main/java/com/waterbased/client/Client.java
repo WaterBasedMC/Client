@@ -2,6 +2,7 @@ package com.waterbased.client;
 
 import com.waterbased.client.modules.Module;
 import com.waterbased.client.modules.ModuleManager;
+import com.waterbased.client.modules.combat.TpAura;
 import com.waterbased.client.modules.movement.*;
 import com.waterbased.client.modules.player.NoFall;
 import com.waterbased.client.modules.render.ClearSight;
@@ -60,6 +61,7 @@ public class Client implements ModInitializer {
         MODULE_MANAGER.addModule(new Jesus());
         MODULE_MANAGER.addModule(new Glide());
         MODULE_MANAGER.addModule(new PacketLogger());
+        MODULE_MANAGER.addModule(new TpAura());
         for (Module module : MODULE_MANAGER.getModules()) {
             LOGGER.info(module.getName() + " - " + module.getDescription());
         }
@@ -147,6 +149,15 @@ public class Client implements ModInitializer {
                 chatManager.send("aua " + MinecraftClient.getInstance().player.world.getPlayers().get(0).getName());
                 // sends packet to damage player
                 damageMyself();
+            } else if (key == InputUtil.GLFW_KEY_KP_3) {
+                chatManager.send("§a" + MinecraftClient.getInstance().player.getPos().toString());
+                ClientPlayerEntity me = MinecraftClient.getInstance().player;
+                if (me == null) return;
+                ClientPlayNetworkHandler networkHandler = MinecraftClient.getInstance().getNetworkHandler();
+                if (networkHandler == null) return;
+                networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(me.getX()+100, me.getY(), me.getZ(), true));
+                
+
             }
         }
     }

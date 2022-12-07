@@ -1,8 +1,10 @@
 package com.waterbased.client.mixin;
 
 import com.waterbased.client.modules.ModuleManager;
+import com.waterbased.client.modules.combat.TpAura;
 import com.waterbased.client.modules.movement.NoSlowDown;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,5 +21,13 @@ public class PlayerEntityMixin {
                 ModuleManager.INSTANCE.getModule(NoSlowDown.class).isEnabled()) {
             ci.cancel();
         }
+    }
+    @Inject(at = @At("TAIL"), method = "attack")
+    public void attackAndLook(Entity target, CallbackInfo ci) {
+        if(ModuleManager.INSTANCE.getModule(TpAura.class).isEnabled()) {
+            ModuleManager.INSTANCE.getModule(TpAura.class).teleportBehindEntity(target);
+            ModuleManager.INSTANCE.getModule(TpAura.class).lookAtEntity(target);
+        }
+
     }
 }
