@@ -8,6 +8,7 @@ import com.waterbased.client.modules.render.ClearSight;
 import com.waterbased.client.modules.render.EntityESP;
 import com.waterbased.client.modules.render.NightVision;
 import com.waterbased.client.modules.utilities.AntiCactus;
+import com.waterbased.client.modules.utilities.PacketLogger;
 import com.waterbased.client.modules.utilities.PlayerAlert;
 import com.waterbased.client.ui.HUDInfo;
 import com.waterbased.client.ui.clickgui.ClickGUI;
@@ -58,6 +59,7 @@ public class Client implements ModInitializer {
         MODULE_MANAGER.addModule(new VehicleFlight());
         MODULE_MANAGER.addModule(new Jesus());
         MODULE_MANAGER.addModule(new Glide());
+        MODULE_MANAGER.addModule(new PacketLogger());
         for (Module module : MODULE_MANAGER.getModules()) {
             LOGGER.info(module.getName() + " - " + module.getDescription());
         }

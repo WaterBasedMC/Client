@@ -1,8 +1,10 @@
 package com.waterbased.client.mixin;
 
 import com.waterbased.client.Client;
+import com.waterbased.client.modules.ModuleManager;
 import com.waterbased.client.modules.movement.SpectatorCam;
 import com.waterbased.client.modules.render.EntityESP;
+import com.waterbased.client.modules.utilities.PacketLogger;
 import com.waterbased.client.modules.utilities.PlayerAlert;
 import com.waterbased.client.ui.HUDInfo;
 import net.minecraft.client.MinecraftClient;
@@ -10,6 +12,8 @@ import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.OtherClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.NetworkSide;
+import net.minecraft.network.Packet;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.network.packet.s2c.play.EntityTrackerUpdateS2CPacket;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
