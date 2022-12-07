@@ -57,6 +57,7 @@ public class Client implements ModInitializer {
         MODULE_MANAGER.addModule(new BouncySlime());
         MODULE_MANAGER.addModule(new VehicleFlight());
         MODULE_MANAGER.addModule(new Jesus());
+        MODULE_MANAGER.addModule(new Glide());
         for (Module module : MODULE_MANAGER.getModules()) {
             LOGGER.info(module.getName() + " - " + module.getDescription());
         }
@@ -156,12 +157,12 @@ public class Client implements ModInitializer {
         for (int i = 0; i < 4; i++) {
             networkHandler.sendPacket(
                     new PlayerMoveC2SPacket.PositionAndOnGround(
-                            me.getX(), me.getY() + (1.49*i), me.getZ(), false)
+                            me.getX(), me.getY() + (1.49 * i), me.getZ(), false)
             );
         }
         networkHandler.sendPacket(
                 new PlayerMoveC2SPacket.PositionAndOnGround(
-                        me.getX(), me.getY(), me.getZ(), false)
+                        me.getX(), me.getY(), me.getZ(), true)
         );
     }
 }
