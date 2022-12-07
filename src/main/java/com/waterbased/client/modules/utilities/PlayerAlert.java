@@ -59,6 +59,7 @@ public class PlayerAlert extends Module {
 
     public void onNewPlayer(OtherClientPlayerEntity player) {
         if (!nearbyPlayers.contains(player)) {
+            Client.LOGGER.info("New player: " + player.getName().getString());
             nearbyPlayers.add(player);
         }
     }

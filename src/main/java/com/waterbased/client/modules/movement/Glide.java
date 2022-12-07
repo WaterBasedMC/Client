@@ -3,6 +3,7 @@ package com.waterbased.client.modules.movement;
 import com.waterbased.client.modules.Module;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.util.InputUtil;
 
 public class Glide extends Module {
 
@@ -10,7 +11,7 @@ public class Glide extends Module {
     private double glideDropSpeed = 0.101;
 
     public Glide() {
-        super("Glide", "Allows you to glide", null);
+        super("Glide", "Allows you to glide", InputUtil.GLFW_KEY_V);
     }
 
     @Override
@@ -26,6 +27,7 @@ public class Glide extends Module {
         if (player == null) return;
         if (shouldGlide()) {
             player.setVelocity(player.getVelocity().x, tickCounter % 2 == 0 ? glideDropSpeed : -glideDropSpeed, player.getVelocity().z);
+            // TODO: Reset resetpoint with invalid packet?
         }
     }
 
